@@ -136,6 +136,7 @@
     "eval:vault": "node evals/vaultEval.mjs",
     "lint": "eslint .",
     "prettier-fix": "prettier . --write",
+    "release": "node scripts/release.mjs",
     "schema": "bare ./spec/schema.js",
     "schema:db": "bare ./spec/build-db.js",
     "test": "bare tests/index.js",

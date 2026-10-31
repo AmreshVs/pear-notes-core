@@ -6,7 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import prettierConfig from 'eslint-config-prettier'
 
 export default [
-  { ignores: ['dist', 'node_modules', 'test', 'spec', 'tests', '.bench-tmp'] },
+  { ignores: ['dist', 'node_modules', 'test', 'spec', 'tests', 'spikes'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -41,7 +41,7 @@ export default [
   },
   {
     // The backend runs on Bare, which provides these timers globally.
-    files: ['backend/**/*.js', 'legacy/**/*.js'],
+    files: ['backend/**/*.js'],
     languageOptions: {
       globals: { ...globals.browser, setImmediate: 'readonly', clearImmediate: 'readonly' }
     }

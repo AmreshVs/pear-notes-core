@@ -482,6 +482,9 @@ export const backendApi = {
   clearStorage: async () => {
     return await getRPC().commandClearStorage()
   },
+  subscribeCrash: async () => {
+    return await getRPC().commandSubscribeCrash()
+  },
   subscribeStorageInfo: async () => {
     return await getRPC().commandSubscribeStorageInfo()
   },

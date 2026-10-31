@@ -153,6 +153,7 @@ const COMMAND_ATTACHMENTS = 'command-attachments'
 const COMMAND_CHECK_BACKUP_RESTORE = 'command-check-backup-restore'
 const COMMAND_GET_HELD_MERGE = 'command-get-held-merge'
 const COMMAND_COMBINE_HELD_MERGE = 'command-combine-held-merge'
+const COMMAND_SUBSCRIBE_CRASH = 'command-subscribe-crash'
 
 schemaNs.register({
   name: BACKUP_PROGRESS_SCHEMA,
@@ -1625,6 +1626,20 @@ schemaNs.register({
   fields: [{ name: 'done', type: 'bool' }]
 })
 
+schemaNs.register({
+  name: `${COMMAND_SUBSCRIBE_CRASH}-${REQUEST}`,
+  fields: []
+})
+schemaNs.register({
+  name: `${COMMAND_SUBSCRIBE_CRASH}-${RESPONSE}`,
+  fields: [
+    { name: 'kind', type: 'string' },
+    { name: 'error', type: 'string' },
+    { name: 'stack', type: 'string' },
+    { name: 'at', type: 'uint' }
+  ]
+})
+
 Hyperschema.toDisk(schema)
 
 const builder = HRPCBuilder.from(SCHEMA_DIR, HRPC_DIR)
@@ -2186,5 +2201,11 @@ for (const command of [
     response: { name: `@${NAMESPACE}/${command}-${RESPONSE}`, stream: false }
   })
 }
+
+ns.register({
+  name: COMMAND_SUBSCRIBE_CRASH,
+  request: { name: `@${NAMESPACE}/${COMMAND_SUBSCRIBE_CRASH}-${REQUEST}`, stream: false },
+  response: { name: `@${NAMESPACE}/${COMMAND_SUBSCRIBE_CRASH}-${RESPONSE}`, stream: true }
+})
 
 HRPCBuilder.toDisk(builder)

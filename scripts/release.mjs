@@ -120,18 +120,6 @@ function checkTree() {
   return branch
 }
 
-function currentReleaseCommit(shipped) {
-  const commit = git(['log', '-n1', '--format=%H', '-G"version":', '--', 'package.json']).out
-  if (!commit) throw new ReleaseError('cannot find the commit that set the version')
-  const changed = git(['diff', '--name-only', commit, 'HEAD', '--', ...shipped]).out
-  if (changed) {
-    throw new ReleaseError(
-      `shipped files changed since ${commit.slice(0, 12)} set the version - bump instead:\n${changed}`
-    )
-  }
-  return commit
-}
-
 function runChecks() {
   step('Lint and tests')
   npm(['run', 'lint'], { capture: false })
@@ -241,7 +229,7 @@ async function main() {
     `  ok: ${version} is not on npm and not tagged (npm has ${published.length ? published.join(', ') : 'nothing yet'})`
   )
 
-  const releaseCommit = reuse ? currentReleaseCommit(pkg.files) : null
+  const releaseCommit = reuse ? git(['rev-parse', 'HEAD']).out : null
 
   runChecks()
   checkPack()

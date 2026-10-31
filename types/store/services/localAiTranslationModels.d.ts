@@ -1,0 +1,108 @@
+export const TRANSLATION_SOURCE_LANGUAGE: "en";
+export const TRANSLATION_ENGINE: "nmt";
+export const TRANSLATION_LICENSE: "MPL-2.0";
+export const TRANSLATION_LANGUAGES: string[];
+export namespace TRANSLATION_REGISTRY_MODELS {
+    namespace BERGAMOT_EN_SQ {
+        export { bytes };
+        export { TRANSLATION_ENGINE as engine };
+        export { TRANSLATION_LICENSE as license };
+    }
+    namespace BERGAMOT_SQ_EN { }
+    namespace BERGAMOT_EN_AR { }
+    namespace BERGAMOT_AR_EN { }
+    namespace BERGAMOT_EN_AZ { }
+    namespace BERGAMOT_AZ_EN { }
+    namespace BERGAMOT_EN_BN { }
+    namespace BERGAMOT_BN_EN { }
+    namespace BERGAMOT_EN_BS { }
+    namespace BERGAMOT_BS_EN { }
+    namespace BERGAMOT_EN_BG { }
+    namespace BERGAMOT_BG_EN { }
+    namespace BERGAMOT_EN_CA { }
+    namespace BERGAMOT_CA_EN { }
+    namespace BERGAMOT_EN_ZH { }
+    namespace BERGAMOT_ZH_EN { }
+    namespace BERGAMOT_EN_HR { }
+    namespace BERGAMOT_HR_EN { }
+    namespace BERGAMOT_EN_CS { }
+    namespace BERGAMOT_CS_EN { }
+    namespace BERGAMOT_EN_DA { }
+    namespace BERGAMOT_DA_EN { }
+    namespace BERGAMOT_EN_NL { }
+    namespace BERGAMOT_NL_EN { }
+    namespace BERGAMOT_EN_ET { }
+    namespace BERGAMOT_ET_EN { }
+    namespace BERGAMOT_EN_FI { }
+    namespace BERGAMOT_FI_EN { }
+    namespace BERGAMOT_EN_FR { }
+    namespace BERGAMOT_FR_EN { }
+    namespace BERGAMOT_EN_DE { }
+    namespace BERGAMOT_DE_EN { }
+    namespace BERGAMOT_EN_EL { }
+    namespace BERGAMOT_EL_EN { }
+    namespace BERGAMOT_EN_GU { }
+    namespace BERGAMOT_GU_EN { }
+    namespace BERGAMOT_EN_HE { }
+    namespace BERGAMOT_HE_EN { }
+    namespace BERGAMOT_EN_HI { }
+    namespace BERGAMOT_HI_EN { }
+    namespace BERGAMOT_EN_HU { }
+    namespace BERGAMOT_HU_EN { }
+    namespace BERGAMOT_EN_IS { }
+    namespace BERGAMOT_IS_EN { }
+    namespace BERGAMOT_EN_ID { }
+    namespace BERGAMOT_ID_EN { }
+    namespace BERGAMOT_EN_IT { }
+    namespace BERGAMOT_IT_EN { }
+    namespace BERGAMOT_EN_JA { }
+    namespace BERGAMOT_JA_EN { }
+    namespace BERGAMOT_EN_KN { }
+    namespace BERGAMOT_KN_EN { }
+    namespace BERGAMOT_EN_KO { }
+    namespace BERGAMOT_KO_EN { }
+    namespace BERGAMOT_EN_LV { }
+    namespace BERGAMOT_LV_EN { }
+    namespace BERGAMOT_EN_LT { }
+    namespace BERGAMOT_LT_EN { }
+    namespace BERGAMOT_EN_MS { }
+    namespace BERGAMOT_MS_EN { }
+    namespace BERGAMOT_EN_ML { }
+    namespace BERGAMOT_ML_EN { }
+    namespace BERGAMOT_EN_NB { }
+    namespace BERGAMOT_NB_EN { }
+    namespace BERGAMOT_EN_FA { }
+    namespace BERGAMOT_FA_EN { }
+    namespace BERGAMOT_EN_PL { }
+    namespace BERGAMOT_PL_EN { }
+    namespace BERGAMOT_EN_PT { }
+    namespace BERGAMOT_PT_EN { }
+    namespace BERGAMOT_EN_RO { }
+    namespace BERGAMOT_RO_EN { }
+    namespace BERGAMOT_EN_RU { }
+    namespace BERGAMOT_RU_EN { }
+    namespace BERGAMOT_EN_SR { }
+    namespace BERGAMOT_SR_EN { }
+    namespace BERGAMOT_EN_SK { }
+    namespace BERGAMOT_SK_EN { }
+    namespace BERGAMOT_EN_SL { }
+    namespace BERGAMOT_SL_EN { }
+    namespace BERGAMOT_EN_ES { }
+    namespace BERGAMOT_ES_EN { }
+    namespace BERGAMOT_EN_SV { }
+    namespace BERGAMOT_SV_EN { }
+    namespace BERGAMOT_EN_TA { }
+    namespace BERGAMOT_TA_EN { }
+    namespace BERGAMOT_EN_TE { }
+    namespace BERGAMOT_TE_EN { }
+    namespace BERGAMOT_EN_TH { }
+    namespace BERGAMOT_TH_EN { }
+    namespace BERGAMOT_EN_TR { }
+    namespace BERGAMOT_TR_EN { }
+    namespace BERGAMOT_EN_UK { }
+    namespace BERGAMOT_UK_EN { }
+    namespace BERGAMOT_EN_VI { }
+    namespace BERGAMOT_VI_EN { }
+}
+export function getTranslationModelName(from: any, to: any): string;
+//# sourceMappingURL=localAiTranslationModels.d.ts.map

@@ -1,0 +1,146 @@
+{
+  "name": "@pear-notes/core",
+  "version": "1.1.1",
+  "description": "Shared logic for Pear Notes",
+  "author": "AmreshVs",
+  "license": "SEE LICENSE IN LICENSE",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmreshVs/pear-notes-core.git"
+  },
+  "main": "index.js",
+  "type": "module",
+  "types": "./types/index.d.ts",
+  "files": [
+    "backend",
+    "spec",
+    "store",
+    "activity.js",
+    "bootTimeline.js",
+    "constant.js",
+    "index.js",
+    "log.js",
+    "rpc.js",
+    "utils.js",
+    "NOTICE.md",
+    "types"
+  ],
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js"
+    },
+    "./backend/*.js": {
+      "types": "./types/backend/*.d.ts",
+      "import": "./backend/*.js"
+    },
+    "./spec/*.js": {
+      "types": "./types/spec/*.d.ts",
+      "import": "./spec/*.js"
+    },
+    "./store/*.js": {
+      "types": "./types/store/*.d.ts",
+      "import": "./store/*.js"
+    },
+    "./store/slices/*": {
+      "types": "./types/store/slices/*.d.ts",
+      "import": "./store/slices/*.js"
+    },
+    "./store/slices/*.js": {
+      "types": "./types/store/slices/*.d.ts",
+      "import": "./store/slices/*.js"
+    },
+    "./activity.js": {
+      "types": "./types/activity.d.ts",
+      "import": "./activity.js"
+    },
+    "./constant.js": {
+      "types": "./types/constant.d.ts",
+      "import": "./constant.js"
+    },
+    "./bootTimeline.js": {
+      "types": "./types/bootTimeline.d.ts",
+      "import": "./bootTimeline.js"
+    },
+    "./log.js": {
+      "types": "./types/log.d.ts",
+      "import": "./log.js"
+    },
+    "./rpc.js": {
+      "types": "./types/rpc.d.ts",
+      "import": "./rpc.js"
+    },
+    "./utils.js": {
+      "types": "./types/utils.d.ts",
+      "import": "./utils.js"
+    }
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
+    "autobase": "^7.28.2",
+    "b4a": "^1.9.0",
+    "bare-crypto": "^1.15.3",
+    "bare-os": "^3.9.3",
+    "blind-encryption-sodium": "^3.0.0",
+    "blind-pairing": "^2.3.1",
+    "clsx": "^2.1.1",
+    "compact-encoding": "^3.5.2",
+    "corestore": "^7.12.6",
+    "encryption-encoding": "^1.0.3",
+    "flat-tree": "^1.9.0",
+    "framed-stream": "^1.0.1",
+    "hrpc": "^4.3.1",
+    "hyperbee": "^2.26.5",
+    "hypercore": "11.35.4",
+    "hypercore-blob-server": "^1.15.0",
+    "hypercore-crypto": "^3.6.1",
+    "hyperdb": "6.9.0",
+    "hyperdrive": "^13.3.4",
+    "hyperschema": "^1.26.2",
+    "hyperswarm": "^4.17.2",
+    "pear-pipe": "^1.0.6",
+    "protomux": "^3.10.1",
+    "protomux-wakeup": "^2.9.0",
+    "react-redux": "^9.3.0",
+    "ready-resource": "^1.2.0",
+    "redux-saga": "^1.5.1",
+    "rocksdb-native": "^3.18.1",
+    "sodium-universal": "^5.0.1",
+    "streamx": "^2.28.1",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@hyperswarm/secret-stream": "^6.9.1",
+    "@types/node": "^26.6.2",
+    "brittle": "^3.19.1",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "prettier-config-holepunch": "^2.0.0",
+    "prettier-config-standard": "^7.0.0",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "build:types": "tsc",
+    "eval:ask": "node evals/askEval.mjs",
+    "eval:rewrite": "node evals/rewriteEval.mjs",
+    "eval:embed": "node evals/embedBench.mjs",
+    "eval:vault": "node evals/vaultEval.mjs",
+    "lint": "eslint .",
+    "prettier-fix": "prettier . --write",
+    "schema": "bare ./spec/schema.js",
+    "schema:db": "bare ./spec/build-db.js",
+    "test": "bare tests/index.js",
+    "test:fast": "bare tests/fast.js",
+    "test:store": "node tests/store.js",
+    "type-check": "tsc --noEmit"
+  }
+}

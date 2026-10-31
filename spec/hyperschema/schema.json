@@ -1,0 +1,4104 @@
+{
+  "version": 55,
+  "schema": [
+    {
+      "name": "backup-progress-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "step",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "progress",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "current",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "total",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "note-media-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "path",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "size",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "note-storage-info-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "contentSize",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "mediaSize",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "totalSize",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "media",
+          "array": true,
+          "type": "@notes/note-media-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "folder-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "updatedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "version": 24
+        }
+      ]
+    },
+    {
+      "name": "folders-array-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "seq",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "value",
+          "type": "@notes/folder-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "note-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "folderKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "updatedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 7
+        },
+        {
+          "name": "pinned",
+          "type": "bool",
+          "version": 8
+        },
+        {
+          "name": "deletedAt",
+          "type": "uint",
+          "version": 19
+        },
+        {
+          "name": "previousFolderKey",
+          "type": "string",
+          "version": 19
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "version": 39
+        },
+        {
+          "name": "bodyOmitted",
+          "type": "bool",
+          "version": 39
+        },
+        {
+          "name": "sealed",
+          "type": "bool",
+          "version": 50
+        }
+      ]
+    },
+    {
+      "name": "notes-array-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "seq",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "value",
+          "type": "@notes/note-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "pairing-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "step",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "progress",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "userData",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "localKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "encryptionKey",
+          "type": "string",
+          "version": 19
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "version": 19
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 19
+        },
+        {
+          "name": "requestedAt",
+          "type": "uint",
+          "version": 20
+        },
+        {
+          "name": "deviceName",
+          "type": "string",
+          "version": 23
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "version": 49
+        },
+        {
+          "name": "blocking",
+          "array": true,
+          "type": "@notes/gate-blocking-device-schema",
+          "version": 54
+        }
+      ]
+    },
+    {
+      "name": "settings-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "theme",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "fontFamily",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "editorFontSize",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "sortBy",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "colorTheme",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "lockMethod",
+          "type": "string",
+          "version": 10
+        },
+        {
+          "name": "lockPasswordSalt",
+          "type": "string",
+          "version": 10
+        },
+        {
+          "name": "lockPasswordHash",
+          "type": "string",
+          "version": 10
+        },
+        {
+          "name": "lockPasswordIterations",
+          "type": "uint",
+          "version": 11
+        },
+        {
+          "name": "activityLogEnabled",
+          "type": "bool",
+          "version": 21
+        },
+        {
+          "name": "activityRetentionDays",
+          "type": "uint",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "synced-device-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "deviceType",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "isLocal",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "updatedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "isOnline",
+          "type": "bool",
+          "version": 20
+        },
+        {
+          "name": "presenceKnown",
+          "type": "bool",
+          "version": 20
+        },
+        {
+          "name": "localKey",
+          "type": "string",
+          "version": 22
+        },
+        {
+          "name": "isIndexer",
+          "type": "bool",
+          "version": 26
+        },
+        {
+          "name": "sealedNotes",
+          "type": "bool",
+          "version": 51
+        },
+        {
+          "name": "compatLevel",
+          "type": "uint",
+          "version": 52
+        },
+        {
+          "name": "appVersion",
+          "type": "string",
+          "version": 52
+        },
+        {
+          "name": "lastSeenAt",
+          "type": "uint",
+          "version": 52
+        }
+      ]
+    },
+    {
+      "name": "synced-devices-array-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "seq",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "value",
+          "type": "@notes/synced-device-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-ready-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "storage",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "encryption",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "entropy",
+          "type": "string",
+          "version": 30
+        },
+        {
+          "name": "appVersion",
+          "type": "string",
+          "version": 52
+        }
+      ]
+    },
+    {
+      "name": "command-ready-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 31
+        }
+      ]
+    },
+    {
+      "name": "command-destroy-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-clear-storage-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-clear-storage-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-chore-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-chore-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "hyperdriveServerAddress",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-insert-folder-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "version": 24
+        }
+      ]
+    },
+    {
+      "name": "command-insert-folder-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-folder-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "version": 24
+        }
+      ]
+    },
+    {
+      "name": "command-update-folder-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-all-folders-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-get-all-folders-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "array": true,
+          "type": "@notes/folders-array-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-single-folder-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-single-folder-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "data",
+          "required": true,
+          "type": "@notes/folder-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-folder-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-folder-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/folder-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-folder-keys-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-folder-keys-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "array": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-delete-folder-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-insert-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 3,
+      "fields": [
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "note",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "folderKey",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 7
+        },
+        {
+          "name": "pinned",
+          "type": "bool",
+          "version": 8
+        }
+      ]
+    },
+    {
+      "name": "command-insert-note-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 3,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "note",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "folderKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 7
+        },
+        {
+          "name": "pinned",
+          "type": "bool",
+          "version": 8
+        }
+      ]
+    },
+    {
+      "name": "command-update-note-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 53
+        }
+      ]
+    },
+    {
+      "name": "command-get-all-notes-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-get-all-notes-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "array": true,
+          "type": "@notes/notes-array-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-single-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-single-note-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "data",
+          "required": true,
+          "type": "@notes/note-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "summary",
+          "type": "bool",
+          "version": 39
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-note-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/note-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-note-keys-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-note-keys-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "array": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-delete-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-insert-file-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "fileName",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "buffer",
+          "type": "buffer",
+          "version": 1
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-insert-file-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "link",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 53
+        }
+      ]
+    },
+    {
+      "name": "command-delete-file-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-create-invite-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "regenerate",
+          "type": "bool",
+          "version": 48
+        }
+      ]
+    },
+    {
+      "name": "command-create-invite-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "invite",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "publicKey",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "expires",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-pairing-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-pairing-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/pairing-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-pair-user-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "invite",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "deviceName",
+          "type": "string",
+          "version": 23
+        },
+        {
+          "name": "mode",
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "vaultName",
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-pair-user-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/pairing-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-confirm-pairing-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-confirm-pairing-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-settings-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "settings",
+          "required": true,
+          "type": "@notes/settings-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-settings-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-settings-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-get-settings-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/settings-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-settings-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-settings-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/settings-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-preference-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "value",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-preference-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-preference-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-get-preference-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-insert-synced-device-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "deviceType",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "platform",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "localKey",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-insert-synced-device-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-synced-device-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-update-synced-device-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-delete-synced-device-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-synced-device-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-synced-device-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/synced-device-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-device-status-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-device-status-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-check-and-insert-local-device-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "deviceName",
+          "type": "string",
+          "version": 23
+        }
+      ]
+    },
+    {
+      "name": "command-check-and-insert-local-device-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-all-synced-device-keys-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-all-synced-device-keys-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "array": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-storage-info-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-storage-info-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "array": true,
+          "type": "@notes/note-storage-info-schema",
+          "version": 1
+        },
+        {
+          "name": "totalBlobBytes",
+          "type": "uint",
+          "version": 2
+        },
+        {
+          "name": "totalOnDiskBytes",
+          "type": "uint",
+          "version": 3
+        },
+        {
+          "name": "reclaimableBytes",
+          "type": "uint",
+          "version": 14
+        },
+        {
+          "name": "downloads",
+          "array": true,
+          "type": "@notes/note-download-info-schema",
+          "version": 16
+        },
+        {
+          "name": "uploads",
+          "array": true,
+          "type": "@notes/note-upload-info-schema",
+          "version": 17
+        },
+        {
+          "name": "sealWaiting",
+          "array": true,
+          "type": "@notes/note-seal-waiting-schema",
+          "version": 53
+        }
+      ]
+    },
+    {
+      "name": "command-export-backup-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "password",
+          "type": "string",
+          "version": 9
+        },
+        {
+          "name": "filePath",
+          "type": "string",
+          "version": 13
+        }
+      ]
+    },
+    {
+      "name": "command-export-backup-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/backup-progress-schema",
+          "version": 1
+        },
+        {
+          "name": "buffer",
+          "type": "buffer",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-import-backup-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "buffer",
+          "type": "buffer",
+          "version": 1
+        },
+        {
+          "name": "filePath",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "recoveryKey",
+          "type": "string",
+          "version": 6
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "version": 9
+        }
+      ]
+    },
+    {
+      "name": "command-import-backup-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "type": "@notes/backup-progress-schema",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "command-delete-note-file-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "noteKey",
+          "required": true,
+          "type": "string",
+          "version": 4
+        },
+        {
+          "name": "mediaPath",
+          "required": true,
+          "type": "string",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "name": "command-delete-note-file-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "name": "command-reject-pairing-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-reject-pairing-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 5
+        }
+      ]
+    },
+    {
+      "name": "command-set-note-lock-password-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "password",
+          "required": true,
+          "type": "string",
+          "version": 10
+        }
+      ]
+    },
+    {
+      "name": "command-set-note-lock-password-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 10
+        }
+      ]
+    },
+    {
+      "name": "command-verify-note-lock-password-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "password",
+          "required": true,
+          "type": "string",
+          "version": 10
+        }
+      ]
+    },
+    {
+      "name": "command-verify-note-lock-password-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "valid",
+          "required": false,
+          "type": "bool",
+          "version": 10
+        },
+        {
+          "name": "retryAfter",
+          "type": "uint",
+          "version": 11
+        }
+      ]
+    },
+    {
+      "name": "yjs-update-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "noteId",
+          "type": "string",
+          "version": 12
+        },
+        {
+          "name": "data",
+          "type": "buffer",
+          "version": 12
+        }
+      ]
+    },
+    {
+      "name": "command-broadcast-yjs-update-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "noteId",
+          "required": true,
+          "type": "string",
+          "version": 12
+        },
+        {
+          "name": "data",
+          "required": true,
+          "type": "buffer",
+          "version": 12
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-yjs-update-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "noteId",
+          "required": true,
+          "type": "string",
+          "version": 12
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-yjs-update-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "type": "@notes/yjs-update-schema",
+          "version": 12
+        }
+      ]
+    },
+    {
+      "name": "command-reclaim-orphaned-blobs-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-reclaim-orphaned-blobs-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "reclaimedBytes",
+          "type": "uint",
+          "version": 14
+        }
+      ]
+    },
+    {
+      "name": "command-insert-file-progress-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 15
+        },
+        {
+          "name": "fileName",
+          "required": true,
+          "type": "string",
+          "version": 15
+        },
+        {
+          "name": "path",
+          "required": true,
+          "type": "string",
+          "version": 15
+        }
+      ]
+    },
+    {
+      "name": "command-insert-file-progress-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "transferred",
+          "type": "uint",
+          "version": 15
+        },
+        {
+          "name": "total",
+          "type": "uint",
+          "version": 15
+        },
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 15
+        },
+        {
+          "name": "link",
+          "type": "string",
+          "version": 15
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 53
+        }
+      ]
+    },
+    {
+      "name": "note-download-info-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "noteKey",
+          "type": "string",
+          "version": 16
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "version": 16
+        },
+        {
+          "name": "fileName",
+          "type": "string",
+          "version": 16
+        },
+        {
+          "name": "totalBytes",
+          "type": "uint",
+          "version": 16
+        },
+        {
+          "name": "downloadedBytes",
+          "type": "uint",
+          "version": 16
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "version": 16
+        },
+        {
+          "name": "sourceOnline",
+          "type": "bool",
+          "version": 16
+        },
+        {
+          "name": "stalled",
+          "type": "bool",
+          "version": 18
+        }
+      ]
+    },
+    {
+      "name": "note-upload-info-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "noteKey",
+          "type": "string",
+          "version": 17
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "version": 17
+        },
+        {
+          "name": "fileName",
+          "type": "string",
+          "version": 17
+        },
+        {
+          "name": "totalBytes",
+          "type": "uint",
+          "version": 17
+        },
+        {
+          "name": "uploadedBytes",
+          "type": "uint",
+          "version": 17
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "version": 17
+        }
+      ]
+    },
+    {
+      "name": "command-retry-download-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "version": 17
+        }
+      ]
+    },
+    {
+      "name": "command-retry-download-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 17
+        }
+      ]
+    },
+    {
+      "name": "command-pause-download-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "url",
+          "required": true,
+          "type": "string",
+          "version": 18
+        }
+      ]
+    },
+    {
+      "name": "command-pause-download-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "paused",
+          "type": "bool",
+          "version": 18
+        }
+      ]
+    },
+    {
+      "name": "command-trash-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 19
+        }
+      ]
+    },
+    {
+      "name": "command-trash-note-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 19
+        }
+      ]
+    },
+    {
+      "name": "command-restore-note-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 19
+        }
+      ]
+    },
+    {
+      "name": "command-restore-note-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 19
+        },
+        {
+          "name": "folderKey",
+          "type": "string",
+          "version": 19
+        }
+      ]
+    },
+    {
+      "name": "command-purge-expired-trash-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-purge-expired-trash-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "purged",
+          "type": "uint",
+          "version": 19
+        }
+      ]
+    },
+    {
+      "name": "activity-entry-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "event",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "device",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "at",
+          "type": "uint",
+          "version": 21
+        },
+        {
+          "name": "lastAt",
+          "type": "uint",
+          "version": 21
+        },
+        {
+          "name": "ops",
+          "type": "uint",
+          "version": 21
+        },
+        {
+          "name": "targetKind",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "targetKey",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "targetTitle",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 21
+        },
+        {
+          "name": "hasDiff",
+          "type": "bool",
+          "version": 21
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "recoverable",
+          "type": "bool",
+          "version": 28
+        }
+      ]
+    },
+    {
+      "name": "activity-diff-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "before",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "after",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 21
+        },
+        {
+          "name": "available",
+          "type": "bool",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "activity-stats-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "count",
+          "type": "uint",
+          "version": 21
+        },
+        {
+          "name": "bytes",
+          "type": "uint",
+          "version": 21
+        },
+        {
+          "name": "oldestAt",
+          "type": "uint",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-get-activity-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "filter",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "deviceKey",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "noteKey",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "limit",
+          "type": "uint",
+          "version": 21
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-get-activity-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "entries",
+          "required": true,
+          "array": true,
+          "type": "@notes/activity-entry-schema",
+          "version": 21
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "version": 21
+        },
+        {
+          "name": "hasMore",
+          "type": "bool",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-get-activity-diff-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-get-activity-diff-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "type": "@notes/activity-diff-schema",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-get-activity-stats-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-get-activity-stats-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "data",
+          "required": true,
+          "type": "@notes/activity-stats-schema",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-clear-activity-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-clear-activity-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "success",
+          "type": "bool",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-activity-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-activity-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "changed",
+          "type": "bool",
+          "version": 21
+        }
+      ]
+    },
+    {
+      "name": "command-suspend-services-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-suspend-services-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 25
+        }
+      ]
+    },
+    {
+      "name": "command-resume-services-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-resume-services-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "hyperdriveServerAddress",
+          "required": true,
+          "type": "string",
+          "version": 25
+        }
+      ]
+    },
+    {
+      "name": "command-set-device-indexer-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "localKey",
+          "required": true,
+          "type": "string",
+          "version": 26
+        },
+        {
+          "name": "isIndexer",
+          "required": false,
+          "type": "bool",
+          "version": 26
+        }
+      ]
+    },
+    {
+      "name": "command-set-device-indexer-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "changed",
+          "required": false,
+          "type": "bool",
+          "version": 26
+        },
+        {
+          "name": "error",
+          "required": true,
+          "type": "string",
+          "version": 26
+        }
+      ]
+    },
+    {
+      "name": "command-get-debug-info-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "heavy",
+          "type": "bool",
+          "version": 27
+        }
+      ]
+    },
+    {
+      "name": "command-get-debug-info-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "json",
+          "type": "string",
+          "version": 27
+        }
+      ]
+    },
+    {
+      "name": "command-recover-discarded-write-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 28
+        }
+      ]
+    },
+    {
+      "name": "command-recover-discarded-write-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 28
+        },
+        {
+          "name": "noteKey",
+          "type": "string",
+          "version": 28
+        }
+      ]
+    },
+    {
+      "name": "command-reset-stalled-media-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-reset-stalled-media-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "json",
+          "type": "string",
+          "version": 29
+        }
+      ]
+    },
+    {
+      "name": "command-start-fresh-vault-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "storage",
+          "required": true,
+          "type": "string",
+          "version": 32
+        }
+      ]
+    },
+    {
+      "name": "command-start-fresh-vault-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 32
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 32
+        },
+        {
+          "name": "preservedPath",
+          "type": "string",
+          "version": 32
+        }
+      ]
+    },
+    {
+      "name": "command-get-error-log-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-get-error-log-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "json",
+          "type": "string",
+          "version": 33
+        }
+      ]
+    },
+    {
+      "name": "command-clear-error-log-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-clear-error-log-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 33
+        }
+      ]
+    },
+    {
+      "name": "command-record-logs-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "json",
+          "type": "string",
+          "version": 34
+        }
+      ]
+    },
+    {
+      "name": "command-record-logs-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 34
+        }
+      ]
+    },
+    {
+      "name": "vault-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 35
+        },
+        {
+          "name": "current",
+          "type": "bool",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-list-vaults-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-list-vaults-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "data",
+          "array": true,
+          "type": "@notes/vault-schema",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-create-vault-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-create-vault-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 35
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-switch-vault-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-switch-vault-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 35
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-rename-vault-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-rename-vault-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 35
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-remove-vault-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "force",
+          "type": "bool",
+          "version": 38
+        }
+      ]
+    },
+    {
+      "name": "command-remove-vault-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 35
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "version": 35
+        },
+        {
+          "name": "left",
+          "type": "bool",
+          "version": 35
+        },
+        {
+          "name": "replicated",
+          "type": "bool",
+          "version": 35
+        }
+      ]
+    },
+    {
+      "name": "command-move-to-vault-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "targetId",
+          "required": true,
+          "type": "string",
+          "version": 36
+        },
+        {
+          "name": "noteKeys",
+          "array": true,
+          "type": "string",
+          "version": 36
+        },
+        {
+          "name": "folderKeys",
+          "array": true,
+          "type": "string",
+          "version": 36
+        }
+      ]
+    },
+    {
+      "name": "command-move-to-vault-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 36
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "version": 36
+        },
+        {
+          "name": "moved",
+          "type": "uint",
+          "version": 36
+        }
+      ]
+    },
+    {
+      "name": "command-set-error-log-enabled-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "version": 37
+        }
+      ]
+    },
+    {
+      "name": "command-set-error-log-enabled-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "version": 37
+        }
+      ]
+    },
+    {
+      "name": "note-search-result-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 40
+        },
+        {
+          "name": "inTitle",
+          "type": "bool",
+          "version": 40
+        },
+        {
+          "name": "snippet",
+          "type": "string",
+          "version": 40
+        },
+        {
+          "name": "ranges",
+          "array": true,
+          "type": "uint",
+          "version": 40
+        }
+      ]
+    },
+    {
+      "name": "command-search-notes-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "query",
+          "type": "string",
+          "version": 40
+        },
+        {
+          "name": "folderKey",
+          "type": "string",
+          "version": 40
+        },
+        {
+          "name": "includeLocked",
+          "type": "bool",
+          "version": 40
+        },
+        {
+          "name": "limit",
+          "type": "uint",
+          "version": 40
+        }
+      ]
+    },
+    {
+      "name": "command-search-notes-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "query",
+          "type": "string",
+          "version": 40
+        },
+        {
+          "name": "results",
+          "array": true,
+          "type": "@notes/note-search-result-schema",
+          "version": 40
+        },
+        {
+          "name": "total",
+          "type": "uint",
+          "version": 40
+        },
+        {
+          "name": "tookMs",
+          "type": "uint",
+          "version": 40
+        },
+        {
+          "name": "failed",
+          "type": "bool",
+          "version": 40
+        }
+      ]
+    },
+    {
+      "name": "command-prewarm-search-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-prewarm-search-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "ready",
+          "type": "bool",
+          "version": 40
+        }
+      ]
+    },
+    {
+      "name": "derived-entry-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 41
+        },
+        {
+          "name": "version",
+          "type": "uint",
+          "version": 41
+        },
+        {
+          "name": "value",
+          "type": "buffer",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "derived-count-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "namespace",
+          "required": true,
+          "type": "string",
+          "version": 41
+        },
+        {
+          "name": "count",
+          "type": "uint",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-put-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 41
+        },
+        {
+          "name": "entries",
+          "array": true,
+          "type": "@notes/derived-entry-schema",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-put-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-get-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 41
+        },
+        {
+          "name": "ids",
+          "array": true,
+          "type": "string",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-get-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "entries",
+          "array": true,
+          "type": "@notes/derived-entry-schema",
+          "version": 41
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-versions-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-versions-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "entries",
+          "array": true,
+          "type": "@notes/derived-entry-schema",
+          "version": 41
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-clear-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-clear-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-stats-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespaces",
+          "array": true,
+          "type": "string",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "command-derived-stats-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "bytes",
+          "type": "uint",
+          "version": 41
+        },
+        {
+          "name": "counts",
+          "array": true,
+          "type": "@notes/derived-count-schema",
+          "version": 41
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 41
+        }
+      ]
+    },
+    {
+      "name": "derived-hit-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 42
+        },
+        {
+          "name": "score",
+          "type": "float64",
+          "version": 42
+        },
+        {
+          "name": "chunk",
+          "type": "uint",
+          "version": 42
+        }
+      ]
+    },
+    {
+      "name": "command-derived-search-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 42
+        },
+        {
+          "name": "query",
+          "type": "buffer",
+          "version": 42
+        },
+        {
+          "name": "limit",
+          "type": "uint",
+          "version": 42
+        }
+      ]
+    },
+    {
+      "name": "command-derived-search-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "results",
+          "array": true,
+          "type": "@notes/derived-hit-schema",
+          "version": 42
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 42
+        }
+      ]
+    },
+    {
+      "name": "command-derived-related-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "limit",
+          "type": "uint",
+          "version": 43
+        }
+      ]
+    },
+    {
+      "name": "command-derived-related-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "results",
+          "array": true,
+          "type": "@notes/derived-hit-schema",
+          "version": 43
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 43
+        }
+      ]
+    },
+    {
+      "name": "derived-pair-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "a",
+          "required": true,
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "b",
+          "required": true,
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "score",
+          "type": "float64",
+          "version": 43
+        }
+      ]
+    },
+    {
+      "name": "command-derived-duplicates-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "textNamespace",
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "pairNamespace",
+          "type": "string",
+          "version": 43
+        },
+        {
+          "name": "threshold",
+          "type": "float64",
+          "version": 43
+        },
+        {
+          "name": "overlap",
+          "type": "float64",
+          "version": 43
+        },
+        {
+          "name": "checkMs",
+          "type": "uint",
+          "version": 43
+        },
+        {
+          "name": "limit",
+          "type": "uint",
+          "version": 43
+        }
+      ]
+    },
+    {
+      "name": "command-derived-duplicates-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "pairs",
+          "array": true,
+          "type": "@notes/derived-pair-schema",
+          "version": 43
+        },
+        {
+          "name": "checked",
+          "type": "uint",
+          "version": 43
+        },
+        {
+          "name": "remaining",
+          "type": "uint",
+          "version": 43
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 43
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-status-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "watch",
+          "type": "bool",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-status-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "available",
+          "type": "bool",
+          "version": 44
+        },
+        {
+          "name": "deviceTitle",
+          "type": "string",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-run-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "runId",
+          "required": true,
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "kind",
+          "required": true,
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "payload",
+          "type": "string",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-run-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 44
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "started",
+          "type": "bool",
+          "version": 44
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-cancel-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "runId",
+          "required": true,
+          "type": "string",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-serve-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "serving",
+          "type": "bool",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-serve-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-jobs-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "watch",
+          "type": "bool",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-jobs-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "jobId",
+          "required": true,
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "payload",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "cancel",
+          "type": "bool",
+          "version": 44
+        },
+        {
+          "name": "deviceTitle",
+          "type": "string",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-ai-offload-reply-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "jobId",
+          "required": true,
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 44
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-upcoming-tasks-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "includeLocked",
+          "type": "bool",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-upcoming-tasks-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "tasks",
+          "type": "string",
+          "version": 44
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 44
+        }
+      ]
+    },
+    {
+      "name": "command-set-synced-pref-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 45
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "version": 45
+        }
+      ]
+    },
+    {
+      "name": "command-set-synced-pref-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 45
+        }
+      ]
+    },
+    {
+      "name": "command-get-synced-prefs-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "prefix",
+          "type": "string",
+          "version": 45
+        }
+      ]
+    },
+    {
+      "name": "command-get-synced-prefs-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "json",
+          "type": "string",
+          "version": 45
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 45
+        }
+      ]
+    },
+    {
+      "name": "command-set-task-checked-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "noteKey",
+          "required": true,
+          "type": "string",
+          "version": 45
+        },
+        {
+          "name": "text",
+          "required": true,
+          "type": "string",
+          "version": 45
+        },
+        {
+          "name": "checked",
+          "type": "bool",
+          "version": 45
+        }
+      ]
+    },
+    {
+      "name": "command-set-task-checked-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 45
+        }
+      ]
+    },
+    {
+      "name": "command-attachments-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "includeLocked",
+          "type": "bool",
+          "version": 46
+        },
+        {
+          "name": "countOnly",
+          "type": "bool",
+          "version": 47
+        }
+      ]
+    },
+    {
+      "name": "command-attachments-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "items",
+          "type": "string",
+          "version": 46
+        },
+        {
+          "name": "ok",
+          "type": "bool",
+          "version": 46
+        },
+        {
+          "name": "count",
+          "type": "uint",
+          "version": 47
+        }
+      ]
+    },
+    {
+      "name": "command-open-lock-session-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "password",
+          "type": "string",
+          "version": 50
+        },
+        {
+          "name": "rootKey",
+          "type": "string",
+          "version": 50
+        },
+        {
+          "name": "returnRootKey",
+          "type": "bool",
+          "version": 50
+        }
+      ]
+    },
+    {
+      "name": "command-open-lock-session-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "ok",
+          "required": false,
+          "type": "bool",
+          "version": 50
+        },
+        {
+          "name": "retryAfter",
+          "type": "uint",
+          "version": 50
+        },
+        {
+          "name": "rootKey",
+          "type": "string",
+          "version": 50
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "version": 50
+        }
+      ]
+    },
+    {
+      "name": "command-close-lock-session-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-close-lock-session-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "required": false,
+          "type": "bool",
+          "version": 50
+        }
+      ]
+    },
+    {
+      "name": "note-seal-waiting-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "noteKey",
+          "type": "string",
+          "version": 53
+        },
+        {
+          "name": "link",
+          "type": "string",
+          "version": 53
+        },
+        {
+          "name": "fileName",
+          "type": "string",
+          "version": 53
+        },
+        {
+          "name": "size",
+          "type": "uint",
+          "version": 53
+        }
+      ]
+    },
+    {
+      "name": "gate-blocking-device-schema",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "version": 54
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "version": 54
+        },
+        {
+          "name": "compatLevel",
+          "type": "uint",
+          "version": 54
+        },
+        {
+          "name": "appVersion",
+          "type": "string",
+          "version": 54
+        },
+        {
+          "name": "lastSeenAt",
+          "type": "uint",
+          "version": 54
+        }
+      ]
+    },
+    {
+      "name": "command-check-backup-restore-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "buffer",
+          "type": "buffer",
+          "version": 54
+        },
+        {
+          "name": "filePath",
+          "type": "string",
+          "version": 54
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "version": 55
+        }
+      ]
+    },
+    {
+      "name": "command-check-backup-restore-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "sealed",
+          "type": "bool",
+          "version": 54
+        },
+        {
+          "name": "blocking",
+          "array": true,
+          "type": "@notes/gate-blocking-device-schema",
+          "version": 54
+        }
+      ]
+    },
+    {
+      "name": "command-get-held-merge-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-get-held-merge-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "held",
+          "type": "bool",
+          "version": 54
+        },
+        {
+          "name": "blocking",
+          "array": true,
+          "type": "@notes/gate-blocking-device-schema",
+          "version": 54
+        }
+      ]
+    },
+    {
+      "name": "command-combine-held-merge-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-combine-held-merge-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "done",
+          "type": "bool",
+          "version": 54
+        }
+      ]
+    }
+  ]
+}

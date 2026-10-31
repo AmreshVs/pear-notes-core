@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./types",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "backend/**/*.js",
+    "store/**/*.js",
+    "spec/**/*.js",
+    "index.js",
+    "bootTimeline.js",
+    "constant.js",
+    "log.js",
+    "utils.js",
+    "rpc.js"
+  ],
+  "exclude": ["node_modules", "types", "eslint.config.js"]
+}

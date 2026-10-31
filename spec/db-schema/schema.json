@@ -1,0 +1,459 @@
+{
+  "version": 4,
+  "schema": [
+    {
+      "name": "note",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "folderKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "updatedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "deletedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "previousFolderKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "pinned",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "version",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "versionBy",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "sealed",
+          "type": "string",
+          "version": 2
+        }
+      ]
+    },
+    {
+      "name": "folder",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "updatedAt",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "invite",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "slot",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "invite",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "publicKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "expires",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "version",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "versionBy",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "syncedDevice",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "key",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "deviceType",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "localKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "swarmKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "addedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "updatedAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "caps",
+          "type": "string",
+          "version": 3
+        },
+        {
+          "name": "compatLevel",
+          "type": "uint",
+          "version": 4
+        },
+        {
+          "name": "appVersion",
+          "type": "string",
+          "version": 4
+        },
+        {
+          "name": "lastSeenAt",
+          "type": "uint",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "name": "mediaTombstone",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "refKey",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "deletedAt",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "encryptedMediaCore",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "coreKey",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "at",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "activityEntry",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "event",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "device",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "at",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "lastAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "ops",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "targetKind",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "targetKey",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "targetTitle",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "locked",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "hasDiff",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "recoverable",
+          "type": "bool",
+          "version": 1
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "activitySnapshot",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "activityDiscarded",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "activitySession",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "noteKey",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "writer",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "at",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "lastAt",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "ops",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "activityState",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "clearedAt",
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    }
+  ]
+}

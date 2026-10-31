@@ -1,0 +1,1273 @@
+{
+  "version": 31,
+  "schema": [
+    {
+      "id": 0,
+      "name": "@notes/command-ready",
+      "request": {
+        "name": "@notes/command-ready-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-ready-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 1,
+      "name": "@notes/command-destroy",
+      "request": {
+        "name": "@notes/command-destroy-request",
+        "send": true
+      },
+      "version": 1
+    },
+    {
+      "id": 2,
+      "name": "@notes/command-chore",
+      "request": {
+        "name": "@notes/command-chore-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-chore-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 3,
+      "name": "@notes/command-clear-storage",
+      "request": {
+        "name": "@notes/command-clear-storage-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-clear-storage-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 4,
+      "name": "@notes/command-insert-folder",
+      "request": {
+        "name": "@notes/command-insert-folder-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-insert-folder-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 5,
+      "name": "@notes/command-update-folder",
+      "request": {
+        "name": "@notes/command-update-folder-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-update-folder-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 6,
+      "name": "@notes/command-get-all-folders",
+      "request": {
+        "name": "@notes/command-get-all-folders-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-all-folders-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 7,
+      "name": "@notes/command-get-single-folder",
+      "request": {
+        "name": "@notes/command-get-single-folder-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-single-folder-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 8,
+      "name": "@notes/command-subscribe-folder",
+      "request": {
+        "name": "@notes/command-subscribe-folder-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-folder-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 9,
+      "name": "@notes/command-subscribe-folder-keys",
+      "request": {
+        "name": "@notes/command-subscribe-folder-keys-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-folder-keys-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 10,
+      "name": "@notes/command-delete-folder",
+      "request": {
+        "name": "@notes/command-delete-folder-request",
+        "send": true
+      },
+      "version": 1
+    },
+    {
+      "id": 11,
+      "name": "@notes/command-insert-note",
+      "request": {
+        "name": "@notes/command-insert-note-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-insert-note-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 12,
+      "name": "@notes/command-update-note",
+      "request": {
+        "name": "@notes/command-update-note-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-update-note-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 13,
+      "name": "@notes/command-get-all-notes",
+      "request": {
+        "name": "@notes/command-get-all-notes-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-all-notes-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 14,
+      "name": "@notes/command-get-single-note",
+      "request": {
+        "name": "@notes/command-get-single-note-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-single-note-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 15,
+      "name": "@notes/command-subscribe-note",
+      "request": {
+        "name": "@notes/command-subscribe-note-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-note-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 16,
+      "name": "@notes/command-subscribe-note-keys",
+      "request": {
+        "name": "@notes/command-subscribe-note-keys-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-note-keys-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 17,
+      "name": "@notes/command-delete-note",
+      "request": {
+        "name": "@notes/command-delete-note-request",
+        "send": true
+      },
+      "version": 1
+    },
+    {
+      "id": 18,
+      "name": "@notes/command-insert-file",
+      "request": {
+        "name": "@notes/command-insert-file-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-insert-file-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 19,
+      "name": "@notes/command-delete-file",
+      "request": {
+        "name": "@notes/command-delete-file-request",
+        "send": true
+      },
+      "version": 1
+    },
+    {
+      "id": 20,
+      "name": "@notes/command-create-invite",
+      "request": {
+        "name": "@notes/command-create-invite-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-create-invite-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 21,
+      "name": "@notes/command-subscribe-pairing",
+      "request": {
+        "name": "@notes/command-subscribe-pairing-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-pairing-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 22,
+      "name": "@notes/command-subscribe-pair-user",
+      "request": {
+        "name": "@notes/command-subscribe-pair-user-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-pair-user-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 23,
+      "name": "@notes/command-confirm-pairing",
+      "request": {
+        "name": "@notes/command-confirm-pairing-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-confirm-pairing-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 24,
+      "name": "@notes/command-update-settings",
+      "request": {
+        "name": "@notes/command-update-settings-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-update-settings-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 25,
+      "name": "@notes/command-get-settings",
+      "request": {
+        "name": "@notes/command-get-settings-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-settings-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 26,
+      "name": "@notes/command-subscribe-settings",
+      "request": {
+        "name": "@notes/command-subscribe-settings-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-settings-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 27,
+      "name": "@notes/command-update-preference",
+      "request": {
+        "name": "@notes/command-update-preference-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-update-preference-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 28,
+      "name": "@notes/command-get-preference",
+      "request": {
+        "name": "@notes/command-get-preference-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-preference-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 29,
+      "name": "@notes/command-insert-synced-device",
+      "request": {
+        "name": "@notes/command-insert-synced-device-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-insert-synced-device-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 30,
+      "name": "@notes/command-update-synced-device",
+      "request": {
+        "name": "@notes/command-update-synced-device-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-update-synced-device-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 31,
+      "name": "@notes/command-delete-synced-device",
+      "request": {
+        "name": "@notes/command-delete-synced-device-request",
+        "send": true
+      },
+      "version": 1
+    },
+    {
+      "id": 32,
+      "name": "@notes/command-subscribe-synced-device",
+      "request": {
+        "name": "@notes/command-subscribe-synced-device-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-synced-device-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 33,
+      "name": "@notes/command-subscribe-all-synced-device-keys",
+      "request": {
+        "name": "@notes/command-subscribe-all-synced-device-keys-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-all-synced-device-keys-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 34,
+      "name": "@notes/command-subscribe-device-status",
+      "request": {
+        "name": "@notes/command-subscribe-device-status-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-device-status-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 35,
+      "name": "@notes/command-check-and-insert-local-device",
+      "request": {
+        "name": "@notes/command-check-and-insert-local-device-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-check-and-insert-local-device-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 36,
+      "name": "@notes/command-subscribe-storage-info",
+      "request": {
+        "name": "@notes/command-subscribe-storage-info-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-storage-info-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 37,
+      "name": "@notes/command-export-backup",
+      "request": {
+        "name": "@notes/command-export-backup-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-export-backup-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 38,
+      "name": "@notes/command-import-backup",
+      "request": {
+        "name": "@notes/command-import-backup-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-import-backup-response",
+        "stream": true
+      },
+      "version": 1
+    },
+    {
+      "id": 20,
+      "name": "@notes/command-delete-note-file",
+      "request": {
+        "name": "@notes/command-delete-note-file-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-delete-note-file-response",
+        "stream": false
+      },
+      "version": 2
+    },
+    {
+      "id": 25,
+      "name": "@notes/command-reject-pairing",
+      "request": {
+        "name": "@notes/command-reject-pairing-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-reject-pairing-response",
+        "stream": false
+      },
+      "version": 3
+    },
+    {
+      "id": 31,
+      "name": "@notes/command-set-note-lock-password",
+      "request": {
+        "name": "@notes/command-set-note-lock-password-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-set-note-lock-password-response",
+        "stream": false
+      },
+      "version": 4
+    },
+    {
+      "id": 32,
+      "name": "@notes/command-verify-note-lock-password",
+      "request": {
+        "name": "@notes/command-verify-note-lock-password-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-verify-note-lock-password-response",
+        "stream": false
+      },
+      "version": 4
+    },
+    {
+      "id": 43,
+      "name": "@notes/command-broadcast-yjs-update",
+      "request": {
+        "name": "@notes/command-broadcast-yjs-update-request",
+        "send": true
+      },
+      "version": 5
+    },
+    {
+      "id": 44,
+      "name": "@notes/command-subscribe-yjs-update",
+      "request": {
+        "name": "@notes/command-subscribe-yjs-update-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-yjs-update-response",
+        "stream": true
+      },
+      "version": 5
+    },
+    {
+      "id": 4,
+      "name": "@notes/command-reclaim-orphaned-blobs",
+      "request": {
+        "name": "@notes/command-reclaim-orphaned-blobs-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-reclaim-orphaned-blobs-response",
+        "stream": false
+      },
+      "version": 6
+    },
+    {
+      "id": 20,
+      "name": "@notes/command-insert-file-progress",
+      "request": {
+        "name": "@notes/command-insert-file-progress-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-insert-file-progress-response",
+        "stream": true
+      },
+      "version": 7
+    },
+    {
+      "id": 5,
+      "name": "@notes/command-retry-download",
+      "request": {
+        "name": "@notes/command-retry-download-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-retry-download-response",
+        "stream": false
+      },
+      "version": 8
+    },
+    {
+      "id": 6,
+      "name": "@notes/command-pause-download",
+      "request": {
+        "name": "@notes/command-pause-download-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-pause-download-response",
+        "stream": false
+      },
+      "version": 9
+    },
+    {
+      "id": 21,
+      "name": "@notes/command-trash-note",
+      "request": {
+        "name": "@notes/command-trash-note-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-trash-note-response",
+        "stream": false
+      },
+      "version": 10
+    },
+    {
+      "id": 22,
+      "name": "@notes/command-restore-note",
+      "request": {
+        "name": "@notes/command-restore-note-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-restore-note-response",
+        "stream": false
+      },
+      "version": 10
+    },
+    {
+      "id": 23,
+      "name": "@notes/command-purge-expired-trash",
+      "request": {
+        "name": "@notes/command-purge-expired-trash-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-purge-expired-trash-response",
+        "stream": false
+      },
+      "version": 10
+    },
+    {
+      "id": 50,
+      "name": "@notes/command-get-activity",
+      "request": {
+        "name": "@notes/command-get-activity-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-activity-response",
+        "stream": false
+      },
+      "version": 11
+    },
+    {
+      "id": 51,
+      "name": "@notes/command-get-activity-diff",
+      "request": {
+        "name": "@notes/command-get-activity-diff-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-activity-diff-response",
+        "stream": false
+      },
+      "version": 11
+    },
+    {
+      "id": 52,
+      "name": "@notes/command-get-activity-stats",
+      "request": {
+        "name": "@notes/command-get-activity-stats-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-activity-stats-response",
+        "stream": false
+      },
+      "version": 11
+    },
+    {
+      "id": 53,
+      "name": "@notes/command-clear-activity",
+      "request": {
+        "name": "@notes/command-clear-activity-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-clear-activity-response",
+        "stream": false
+      },
+      "version": 11
+    },
+    {
+      "id": 54,
+      "name": "@notes/command-subscribe-activity",
+      "request": {
+        "name": "@notes/command-subscribe-activity-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-activity-response",
+        "stream": true
+      },
+      "version": 11
+    },
+    {
+      "id": 57,
+      "name": "@notes/command-suspend-services",
+      "request": {
+        "name": "@notes/command-suspend-services-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-suspend-services-response",
+        "stream": false
+      },
+      "version": 12
+    },
+    {
+      "id": 58,
+      "name": "@notes/command-resume-services",
+      "request": {
+        "name": "@notes/command-resume-services-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-resume-services-response",
+        "stream": false
+      },
+      "version": 12
+    },
+    {
+      "id": 43,
+      "name": "@notes/command-set-device-indexer",
+      "request": {
+        "name": "@notes/command-set-device-indexer-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-set-device-indexer-response",
+        "stream": false
+      },
+      "version": 13
+    },
+    {
+      "id": 60,
+      "name": "@notes/command-get-debug-info",
+      "request": {
+        "name": "@notes/command-get-debug-info-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-debug-info-response",
+        "stream": false
+      },
+      "version": 14
+    },
+    {
+      "id": 53,
+      "name": "@notes/command-recover-discarded-write",
+      "request": {
+        "name": "@notes/command-recover-discarded-write-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-recover-discarded-write-response",
+        "stream": false
+      },
+      "version": 15
+    },
+    {
+      "id": 62,
+      "name": "@notes/command-reset-stalled-media",
+      "request": {
+        "name": "@notes/command-reset-stalled-media-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-reset-stalled-media-response",
+        "stream": false
+      },
+      "version": 16
+    },
+    {
+      "id": 63,
+      "name": "@notes/command-start-fresh-vault",
+      "request": {
+        "name": "@notes/command-start-fresh-vault-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-start-fresh-vault-response",
+        "stream": false
+      },
+      "version": 17
+    },
+    {
+      "id": 64,
+      "name": "@notes/command-get-error-log",
+      "request": {
+        "name": "@notes/command-get-error-log-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-error-log-response",
+        "stream": false
+      },
+      "version": 18
+    },
+    {
+      "id": 65,
+      "name": "@notes/command-clear-error-log",
+      "request": {
+        "name": "@notes/command-clear-error-log-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-clear-error-log-response",
+        "stream": false
+      },
+      "version": 18
+    },
+    {
+      "id": 66,
+      "name": "@notes/command-record-logs",
+      "request": {
+        "name": "@notes/command-record-logs-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-record-logs-response",
+        "stream": false
+      },
+      "version": 19
+    },
+    {
+      "id": 67,
+      "name": "@notes/command-list-vaults",
+      "request": {
+        "name": "@notes/command-list-vaults-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-list-vaults-response",
+        "stream": false
+      },
+      "version": 20
+    },
+    {
+      "id": 68,
+      "name": "@notes/command-create-vault",
+      "request": {
+        "name": "@notes/command-create-vault-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-create-vault-response",
+        "stream": false
+      },
+      "version": 20
+    },
+    {
+      "id": 69,
+      "name": "@notes/command-switch-vault",
+      "request": {
+        "name": "@notes/command-switch-vault-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-switch-vault-response",
+        "stream": false
+      },
+      "version": 20
+    },
+    {
+      "id": 70,
+      "name": "@notes/command-rename-vault",
+      "request": {
+        "name": "@notes/command-rename-vault-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-rename-vault-response",
+        "stream": false
+      },
+      "version": 20
+    },
+    {
+      "id": 71,
+      "name": "@notes/command-remove-vault",
+      "request": {
+        "name": "@notes/command-remove-vault-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-remove-vault-response",
+        "stream": false
+      },
+      "version": 20
+    },
+    {
+      "id": 72,
+      "name": "@notes/command-move-to-vault",
+      "request": {
+        "name": "@notes/command-move-to-vault-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-move-to-vault-response",
+        "stream": false
+      },
+      "version": 21
+    },
+    {
+      "id": 73,
+      "name": "@notes/command-set-error-log-enabled",
+      "request": {
+        "name": "@notes/command-set-error-log-enabled-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-set-error-log-enabled-response",
+        "stream": false
+      },
+      "version": 22
+    },
+    {
+      "id": 74,
+      "name": "@notes/command-search-notes",
+      "request": {
+        "name": "@notes/command-search-notes-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-search-notes-response",
+        "stream": false
+      },
+      "version": 23
+    },
+    {
+      "id": 75,
+      "name": "@notes/command-prewarm-search",
+      "request": {
+        "name": "@notes/command-prewarm-search-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-prewarm-search-response",
+        "stream": false
+      },
+      "version": 23
+    },
+    {
+      "id": 76,
+      "name": "@notes/command-derived-put",
+      "request": {
+        "name": "@notes/command-derived-put-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-put-response",
+        "stream": false
+      },
+      "version": 24
+    },
+    {
+      "id": 77,
+      "name": "@notes/command-derived-get",
+      "request": {
+        "name": "@notes/command-derived-get-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-get-response",
+        "stream": false
+      },
+      "version": 24
+    },
+    {
+      "id": 78,
+      "name": "@notes/command-derived-versions",
+      "request": {
+        "name": "@notes/command-derived-versions-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-versions-response",
+        "stream": false
+      },
+      "version": 24
+    },
+    {
+      "id": 79,
+      "name": "@notes/command-derived-clear",
+      "request": {
+        "name": "@notes/command-derived-clear-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-clear-response",
+        "stream": false
+      },
+      "version": 24
+    },
+    {
+      "id": 80,
+      "name": "@notes/command-derived-stats",
+      "request": {
+        "name": "@notes/command-derived-stats-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-stats-response",
+        "stream": false
+      },
+      "version": 24
+    },
+    {
+      "id": 81,
+      "name": "@notes/command-derived-search",
+      "request": {
+        "name": "@notes/command-derived-search-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-search-response",
+        "stream": false
+      },
+      "version": 25
+    },
+    {
+      "id": 82,
+      "name": "@notes/command-derived-related",
+      "request": {
+        "name": "@notes/command-derived-related-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-related-response",
+        "stream": false
+      },
+      "version": 26
+    },
+    {
+      "id": 83,
+      "name": "@notes/command-derived-duplicates",
+      "request": {
+        "name": "@notes/command-derived-duplicates-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-derived-duplicates-response",
+        "stream": false
+      },
+      "version": 26
+    },
+    {
+      "id": 84,
+      "name": "@notes/command-ai-offload-status",
+      "request": {
+        "name": "@notes/command-ai-offload-status-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-ai-offload-status-response",
+        "stream": true
+      },
+      "version": 27
+    },
+    {
+      "id": 85,
+      "name": "@notes/command-ai-offload-run",
+      "request": {
+        "name": "@notes/command-ai-offload-run-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-ai-offload-run-response",
+        "stream": true
+      },
+      "version": 27
+    },
+    {
+      "id": 86,
+      "name": "@notes/command-ai-offload-cancel",
+      "request": {
+        "name": "@notes/command-ai-offload-cancel-request",
+        "send": true
+      },
+      "version": 27
+    },
+    {
+      "id": 87,
+      "name": "@notes/command-ai-offload-serve",
+      "request": {
+        "name": "@notes/command-ai-offload-serve-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-ai-offload-serve-response",
+        "stream": false
+      },
+      "version": 27
+    },
+    {
+      "id": 88,
+      "name": "@notes/command-ai-offload-jobs",
+      "request": {
+        "name": "@notes/command-ai-offload-jobs-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-ai-offload-jobs-response",
+        "stream": true
+      },
+      "version": 27
+    },
+    {
+      "id": 89,
+      "name": "@notes/command-ai-offload-reply",
+      "request": {
+        "name": "@notes/command-ai-offload-reply-request",
+        "send": true
+      },
+      "version": 27
+    },
+    {
+      "id": 90,
+      "name": "@notes/command-upcoming-tasks",
+      "request": {
+        "name": "@notes/command-upcoming-tasks-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-upcoming-tasks-response",
+        "stream": false
+      },
+      "version": 27
+    },
+    {
+      "id": 91,
+      "name": "@notes/command-set-synced-pref",
+      "request": {
+        "name": "@notes/command-set-synced-pref-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-set-synced-pref-response",
+        "stream": false
+      },
+      "version": 28
+    },
+    {
+      "id": 92,
+      "name": "@notes/command-get-synced-prefs",
+      "request": {
+        "name": "@notes/command-get-synced-prefs-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-synced-prefs-response",
+        "stream": false
+      },
+      "version": 28
+    },
+    {
+      "id": 93,
+      "name": "@notes/command-set-task-checked",
+      "request": {
+        "name": "@notes/command-set-task-checked-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-set-task-checked-response",
+        "stream": false
+      },
+      "version": 28
+    },
+    {
+      "id": 94,
+      "name": "@notes/command-attachments",
+      "request": {
+        "name": "@notes/command-attachments-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-attachments-response",
+        "stream": false
+      },
+      "version": 29
+    },
+    {
+      "id": 95,
+      "name": "@notes/command-open-lock-session",
+      "request": {
+        "name": "@notes/command-open-lock-session-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-open-lock-session-response",
+        "stream": false
+      },
+      "version": 30
+    },
+    {
+      "id": 96,
+      "name": "@notes/command-close-lock-session",
+      "request": {
+        "name": "@notes/command-close-lock-session-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-close-lock-session-response",
+        "stream": false
+      },
+      "version": 30
+    },
+    {
+      "id": 97,
+      "name": "@notes/command-check-backup-restore",
+      "request": {
+        "name": "@notes/command-check-backup-restore-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-check-backup-restore-response",
+        "stream": false
+      },
+      "version": 31
+    },
+    {
+      "id": 98,
+      "name": "@notes/command-get-held-merge",
+      "request": {
+        "name": "@notes/command-get-held-merge-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-get-held-merge-response",
+        "stream": false
+      },
+      "version": 31
+    },
+    {
+      "id": 99,
+      "name": "@notes/command-combine-held-merge",
+      "request": {
+        "name": "@notes/command-combine-held-merge-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-combine-held-merge-response",
+        "stream": false
+      },
+      "version": 31
+    }
+  ]
+}

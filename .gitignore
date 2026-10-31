@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+.package-lock.json
+.pnpm-store/
+
+# Build and distribution
+dist/
+build/
+*.tsbuildinfo
+
+# Environment and Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Pear / Hypercore storage
+storage/
+core/
+.pear/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+
+# Eval outputs
+evals/out/
+
+# Real-image eval inputs (not ours to publish)
+evals/vision/real/
+
+spikes/*
+# Local agent and tool config
+.claude/
+.agents/
+.agent/
+.argent/
+.gemini/
+.codex/
+.mcp.json
+CLAUDE.md
+skills-lock.json
+.trail/

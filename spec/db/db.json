@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "offset": 0,
+  "schema": [
+    {
+      "name": "notes",
+      "namespace": "notes",
+      "id": 0,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/note",
+      "derived": false,
+      "key": [
+        "key"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "folders",
+      "namespace": "notes",
+      "id": 1,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/folder",
+      "derived": false,
+      "key": [
+        "key"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "invites",
+      "namespace": "notes",
+      "id": 2,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/invite",
+      "derived": false,
+      "key": [
+        "slot"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "settings",
+      "namespace": "notes",
+      "id": 3,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/settings",
+      "derived": false,
+      "key": [
+        "id"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "syncedDevices",
+      "namespace": "notes",
+      "id": 4,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/syncedDevice",
+      "derived": false,
+      "key": [
+        "key"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "mediaTombstones",
+      "namespace": "notes",
+      "id": 5,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/mediaTombstone",
+      "derived": false,
+      "key": [
+        "refKey"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "encryptedMediaCores",
+      "namespace": "notes",
+      "id": 6,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/encryptedMediaCore",
+      "derived": false,
+      "key": [
+        "coreKey"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activity",
+      "namespace": "notes",
+      "id": 7,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [
+        "@notes/activityByNote"
+      ],
+      "schema": "@notes/activityEntry",
+      "derived": false,
+      "key": [
+        "id"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activitySnapshots",
+      "namespace": "notes",
+      "id": 8,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/activitySnapshot",
+      "derived": false,
+      "key": [
+        "id"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activityDiscarded",
+      "namespace": "notes",
+      "id": 9,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/activityDiscarded",
+      "derived": false,
+      "key": [
+        "id"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activitySessions",
+      "namespace": "notes",
+      "id": 10,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/activitySession",
+      "derived": false,
+      "key": [
+        "noteKey",
+        "writer"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activityTitleSessions",
+      "namespace": "notes",
+      "id": 11,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/activitySession",
+      "derived": false,
+      "key": [
+        "noteKey",
+        "writer"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activityState",
+      "namespace": "notes",
+      "id": 12,
+      "type": 1,
+      "version": 1,
+      "versionField": null,
+      "indexes": [],
+      "schema": "@notes/activityState",
+      "derived": false,
+      "key": [
+        "id"
+      ],
+      "trigger": null
+    },
+    {
+      "name": "activityByNote",
+      "namespace": "notes",
+      "id": 13,
+      "type": 2,
+      "version": 1,
+      "collection": "@notes/activity",
+      "unique": false,
+      "deprecated": false,
+      "key": {
+        "type": "string",
+        "map": "mapActivityToNote"
+      }
+    }
+  ]
+}

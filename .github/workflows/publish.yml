@@ -1,12 +1,16 @@
-name: Publish to npm
+name: Release to npm
 
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: 'Release tag to publish, e.g. 1.2.0 (made by npm run release)'
+      version:
+        description: 'patch, minor, major, an exact X.Y.Z, or current (release the version already in package.json, or retry its publish)'
         type: string
-        required: true
+        default: patch
+      skip_tests:
+        description: 'Skip test:fast and test:store (lint still runs)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -16,76 +20,51 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     environment: npm
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
-      - name: Check the tag name
-        env:
-          TAG: ${{ inputs.tag }}
-        run: |
-          if ! [[ "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "::error::\"$TAG\" is not a MAJOR.MINOR.PATCH release tag"
-            exit 1
-          fi
-          if ! git ls-remote --exit-code --tags "https://github.com/$GITHUB_REPOSITORY" "refs/tags/$TAG" >/dev/null; then
-            echo "::error::there is no tag $TAG yet - make it with npm run release in pear-notes-core, which also starts this workflow"
-            exit 1
-          fi
-
       - uses: actions/checkout@v5
         with:
-          ref: refs/tags/${{ inputs.tag }}
           fetch-depth: 0
-          persist-credentials: false
-
-      - name: Check the tag is a release
-        env:
-          TAG: ${{ inputs.tag }}
-        run: |
-          version=$(node -p "require('./package.json').version")
-          if [ "$version" != "$TAG" ]; then
-            echo "::error::tag $TAG holds package.json version $version"
-            exit 1
-          fi
-          if ! git branch -r --contains HEAD | grep -Eq '^\s*origin/(main|v[0-9]+\.[0-9]+\.[0-9]+)$'; then
-            echo "::error::tag $TAG is not on main or a vX.Y.Z release branch"
-            exit 1
-          fi
 
       - uses: actions/setup-node@v5
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
 
-      - name: Check the version is not on npm yet
-        env:
-          TAG: ${{ inputs.tag }}
-        run: |
-          name=$(node -p "require('./package.json').name")
-          if npm view "$name@$TAG" version 2>/dev/null | grep -q .; then
-            echo "::error::$name@$TAG is already on npm"
-            exit 1
-          fi
-
       - name: Install dependencies
-        run: npm ci --ignore-scripts --no-audit --no-fund
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install -g --ignore-scripts --no-audit --no-fund bare@1.36.0
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Pack
-        run: npm publish --dry-run
+      - name: Check, test, bump, tag and push
+        id: release
+        env:
+          VERSION: ${{ inputs.version }}
+          SKIP_TESTS: ${{ inputs.skip_tests }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          args=("$VERSION" --ci)
+          if [ "$SKIP_TESTS" = "true" ]; then args+=(--skip-tests); fi
+          node scripts/release.mjs "${args[@]}"
 
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TAG: ${{ inputs.tag }}
+          TAG: ${{ steps.release.outputs.tag }}
         run: |
+          git checkout --quiet "refs/tags/$TAG"
           name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          if [ "$version" != "$TAG" ]; then
+            echo "::error::tag $TAG holds package.json version $version"
+            exit 1
+          fi
           latest=$(npm view "$name" dist-tags.latest 2>/dev/null || true)
           newest=$(printf '%s\n%s\n' "$latest" "$TAG" | sed '/^$/d' | sort -V | tail -n1)
           if [ -n "$latest" ] && [ "$newest" != "$TAG" ]; then

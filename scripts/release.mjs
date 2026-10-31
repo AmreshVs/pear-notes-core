@@ -1,7 +1,8 @@
-// Release @pear-notes/core: check, test, bump, tag, push, then start the npm publish workflow.
+// Release @pear-notes/core. publish.yml runs this with --ci: check, test, bump, tag, push.
+// Run locally, it does the same checks and then starts publish.yml.
 //
 //   npm run release -- patch|minor|major|X.Y.Z
-//   npm run release -- current      # tag and publish the version already in package.json
+//   npm run release -- current      # release the version already in package.json, or retry its publish
 //   npm run release -- 1.2.0 --dry-run --skip-tests
 
 import { spawnSync } from 'child_process'
@@ -22,6 +23,7 @@ const flags = new Set(args.filter((arg) => arg.startsWith('--')))
 const target = args.find((arg) => !arg.startsWith('--'))
 const DRY_RUN = flags.has('--dry-run')
 const SKIP_TESTS = flags.has('--skip-tests')
+const CI = flags.has('--ci')
 
 class ReleaseError extends Error {}
 
@@ -176,6 +178,10 @@ function writeVersion(version) {
   }
 }
 
+function setOutput(name, value) {
+  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `${name}=${value}\n`)
+}
+
 async function confirm(rl, question) {
   const answer = await rl.question(`\n${question} [y/N] `)
   return /^y(es)?$/i.test(answer.trim())
@@ -214,10 +220,15 @@ async function main() {
     )
   }
   const tagged = remoteTag(version)
+  if (tagged && CI && reuse) {
+    console.log(`  tag ${version} is on origin but not on npm - publishing it again`)
+    setOutput('tag', version)
+    return
+  }
   if (tagged) {
     throw new ReleaseError(
       `origin already has a tag ${version} (${tagged.slice(0, 12)}) but npm does not - ` +
-        `rerun the workflow instead: gh workflow run ${WORKFLOW} --repo ${slug} -f tag=${version}`
+        `run the release workflow with "current" to publish it`
     )
   }
   if (git(['rev-parse', '--verify', '--quiet', `refs/tags/${version}`], { allowFail: true }).ok) {
@@ -241,44 +252,19 @@ async function main() {
   step('Plan')
   console.log(`  ${plan}`)
   console.log(`  push ${reuse ? '' : `${branch} and `}tag ${version} to origin (${slug})`)
-  console.log(`  start ${WORKFLOW}, which publishes ${pkg.name}@${version} to npm with provenance`)
+  console.log(`  publish ${pkg.name}@${version} to npm with provenance (${WORKFLOW})`)
 
   if (DRY_RUN) {
     console.log('\n  dry run: nothing was written, tagged or pushed\n')
     return
   }
 
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-  try {
-    if (!(await confirm(rl, `Release ${pkg.name}@${version}?`))) {
+  if (!CI) {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
+    const start = await confirm(rl, `Start ${WORKFLOW} on ${branch} to release ${version}?`)
+    rl.close()
+    if (!start) {
       console.log('  stopped, nothing changed')
-      return
-    }
-
-    let commit = releaseCommit
-    if (!reuse) {
-      writeVersion(version)
-      if (buildTypes()) console.log('  regenerated types/')
-      git(['add', '--all', '--', ...VERSION_FILES, 'types'])
-      git(['commit', '--quiet', '-m', `Release core ${version}`])
-      commit = git(['rev-parse', 'HEAD']).out
-      console.log(`  committed ${commit.slice(0, 12)}`)
-    }
-    git(['tag', '-a', version, '-m', `Core ${version}`, commit])
-    console.log(`  tagged ${version}`)
-
-    const refs = reuse ? [`refs/tags/${version}`] : [branch, `refs/tags/${version}`]
-    if (!(await confirm(rl, `Push ${refs.join(' and ')} to origin?`))) {
-      console.log(`  not pushed. Later: git push --atomic origin ${refs.join(' ')}`)
-      return
-    }
-    git(['push', '--atomic', '--quiet', 'origin', ...refs])
-    console.log('  pushed')
-
-    if (!(await confirm(rl, `Start ${WORKFLOW} to publish ${version} to npm?`))) {
-      console.log(
-        `  not started. Later: gh workflow run ${WORKFLOW} --repo ${slug} -f tag=${version}`
-      )
       return
     }
     run('gh', [
@@ -288,17 +274,29 @@ async function main() {
       '--repo',
       slug,
       '--ref',
-      'main',
+      branch,
       '-f',
-      `tag=${version}`
+      `version=${target}`
     ])
     console.log(`  started: https://github.com/${slug}/actions/workflows/${WORKFLOW}`)
-    console.log(
-      '  then bump the apps: node scripts/bump.js > Mobile + desktop > Use a core version from npm\n'
-    )
-  } finally {
-    rl.close()
+    console.log('  approve it in the npm environment, then pull the release commit\n')
+    return
   }
+
+  let commit = releaseCommit
+  if (!reuse) {
+    writeVersion(version)
+    if (buildTypes()) console.log('  regenerated types/')
+    git(['add', '--all', '--', ...VERSION_FILES, 'types'])
+    git(['commit', '--quiet', '-m', `Release core ${version}`])
+    commit = git(['rev-parse', 'HEAD']).out
+    console.log(`  committed ${commit.slice(0, 12)}`)
+  }
+  git(['tag', '-a', version, '-m', `Core ${version}`, commit])
+  const refs = reuse ? [`refs/tags/${version}`] : [branch, `refs/tags/${version}`]
+  git(['push', '--atomic', '--quiet', 'origin', ...refs])
+  console.log(`  tagged ${version} and pushed ${refs.join(' and ')}`)
+  setOutput('tag', version)
 }
 
 main().catch((error) => {

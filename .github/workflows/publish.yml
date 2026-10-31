@@ -3,10 +3,15 @@ name: Release to npm
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'patch, minor, major, an exact X.Y.Z, or current (release the version already in package.json, or retry its publish)'
-        type: string
+      bump:
+        description: 'Version bump. none = release the version already in package.json, or retry its publish.'
+        type: choice
+        options: [patch, minor, major, none]
         default: patch
+      version:
+        description: 'Exact version, e.g. 1.2.0 (empty = use the bump). Needs bump none.'
+        type: string
+        required: false
       skip_tests:
         description: 'Skip test:fast and test:store (lint still runs)'
         type: boolean
@@ -44,12 +49,18 @@ jobs:
       - name: Check, test, bump, tag and push
         id: release
         env:
+          BUMP: ${{ inputs.bump }}
           VERSION: ${{ inputs.version }}
           SKIP_TESTS: ${{ inputs.skip_tests }}
         run: |
+          if [ -n "$VERSION" ] && [ "$BUMP" != "none" ]; then
+            echo "::error::Pick bump none to release the exact version $VERSION, or leave the version empty"
+            exit 1
+          fi
+          if [ -n "$VERSION" ]; then target="$VERSION"; elif [ "$BUMP" = "none" ]; then target=current; else target="$BUMP"; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          args=("$VERSION" --ci)
+          args=("$target" --ci)
           if [ "$SKIP_TESTS" = "true" ]; then args+=(--skip-tests); fi
           node scripts/release.mjs "${args[@]}"
 

@@ -267,17 +267,10 @@ async function main() {
       console.log('  stopped, nothing changed')
       return
     }
-    run('gh', [
-      'workflow',
-      'run',
-      WORKFLOW,
-      '--repo',
-      slug,
-      '--ref',
-      branch,
-      '-f',
-      `version=${target}`
-    ])
+    const inputs = SEMVER.test(target)
+      ? ['-f', 'bump=none', '-f', `version=${target}`]
+      : ['-f', `bump=${reuse ? 'none' : target}`]
+    run('gh', ['workflow', 'run', WORKFLOW, '--repo', slug, '--ref', branch, ...inputs])
     console.log(`  started: https://github.com/${slug}/actions/workflows/${WORKFLOW}`)
     console.log('  approve it in the npm environment, then pull the release commit\n')
     return

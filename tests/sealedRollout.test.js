@@ -164,6 +164,7 @@ test(
       }
     })
     await mac.swarm.resume()
+    await mac.swarm.flush()
     await phone.swarm.resume()
 
     const synced = async (base) =>
@@ -210,6 +211,7 @@ test(
     t.teardown(() => phonePass.stop())
     phone.on('sealed-save-rejected', () => phonePass.start())
     await mac.swarm.resume()
+    await mac.swarm.flush()
     await phone.swarm.resume()
 
     const settled = async (base) => {

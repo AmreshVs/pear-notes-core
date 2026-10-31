@@ -152,6 +152,7 @@ test(
       })
     }
     await a.swarm.resume()
+    await a.swarm.flush()
     await b.swarm.resume()
 
     t.ok(await until(() => drained([a, b]), 60000), 'both backlogs drain')

@@ -21,6 +21,17 @@ import { withTestnet } from './helpers/testnet.js'
 const tempDir = () => path.join(tmpdir(), 'errlog-' + Math.random().toString(36).slice(2, 9))
 const KEY = 'ab'.repeat(32)
 
+function useUnopenedErrorLog(t) {
+  const saved = {
+    list: errorLog.list,
+    filePath: errorLog.filePath,
+    settingsPath: errorLog.settingsPath,
+    enabled: errorLog.enabled
+  }
+  Object.assign(errorLog, { list: [], filePath: null, settingsPath: null, enabled: false })
+  t.teardown(() => Object.assign(errorLog, saved))
+}
+
 test('every log level reaches the log even when nothing is printed', (t) => {
   const store = new ErrorLog()
   log.setSink((level, args) => store.record(level, args))
@@ -157,6 +168,7 @@ test('the switch survives a restart and turning it off stops recording', (t) => 
 })
 
 test('a hypercore conflict printed to the console is recorded as an error', (t) => {
+  useUnopenedErrorLog(t)
   const printed = []
   const target = { log: (...args) => printed.push(args) }
   captureDependencyConsole(target)
@@ -173,6 +185,7 @@ test('a hypercore conflict printed to the console is recorded as an error', (t) 
 })
 
 test('a fatal error is recorded and then re-raised unchanged', (t) => {
+  useUnopenedErrorLog(t)
   const runtime = new EventEmitter()
   const rethrown = []
   const before = errorLog.list.length

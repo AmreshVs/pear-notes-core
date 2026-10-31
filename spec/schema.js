@@ -2202,7 +2202,6 @@ for (const command of [
   })
 }
 
-// The backend's fatal error, written just before it dies, so the frontend can show what killed it.
 ns.register({
   name: COMMAND_SUBSCRIBE_CRASH,
   request: { name: `@${NAMESPACE}/${COMMAND_SUBSCRIBE_CRASH}-${REQUEST}`, stream: false },

@@ -5,8 +5,7 @@ import { formatLogArgs } from './logFormat.js'
 
 const FILE_NAME = 'error-log.json'
 const SETTINGS_FILE_NAME = 'error-log-settings.json'
-// Long enough for a crash written to the frontend to leave the process before
-// the re-raise kills it.
+// Time for the crash report to leave the process before the re-raise aborts it.
 const CRASH_REPORT_FLUSH_MS = 250
 const MAX_ENTRIES = 2000
 const COALESCE_MS = 5 * 60 * 1000
@@ -171,14 +170,12 @@ function rethrowLater(err) {
 
 let crashReporter = null
 
-// Called with the fatal error, whether or not the log is on, so the frontend
-// can show what killed the backend.
 export function setCrashReporter(reporter) {
   crashReporter = reporter
 }
 
-// Records a fatal error, hands it to the crash reporter, then re-raises it with
-// our listeners removed so the runtime's default crash behaviour is unchanged.
+// Records a fatal error, then re-raises it with our listeners removed so the
+// runtime's default crash behaviour is unchanged.
 export function captureFatalErrors(
   runtime,
   rethrow = rethrowLater,

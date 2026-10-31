@@ -58,8 +58,6 @@ const ipc = isMobile ? BareKit.IPC : Bare.IPC
 const stream = new FramedStream(ipc)
 const rpc = new HRPC(stream)
 
-// Every frontend that subscribed hears the error that killed the backend, so it
-// can show it; nothing else outlives the process to tell it.
 const crashStreams = new Set()
 setCrashReporter((crash) => {
   for (const crashStream of crashStreams) {

@@ -6,8 +6,8 @@ on:
       bump:
         description: 'Version bump. none = release the version already in package.json, or retry its publish.'
         type: choice
-        options: [patch, minor, major, none]
-        default: patch
+        options: [none, patch, minor, major]
+        default: none
       version:
         description: 'Exact version, e.g. 1.2.0 (empty = use the bump). When set, it is used and the bump is ignored.'
         type: string

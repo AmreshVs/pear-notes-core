@@ -9,7 +9,7 @@ on:
         options: [patch, minor, major, none]
         default: patch
       version:
-        description: 'Exact version, e.g. 1.2.0 (empty = use the bump). Needs bump none.'
+        description: 'Exact version, e.g. 1.2.0 (empty = use the bump). When set, it is used and the bump is ignored.'
         type: string
         required: false
       skip_tests:
@@ -54,8 +54,7 @@ jobs:
           SKIP_TESTS: ${{ inputs.skip_tests }}
         run: |
           if [ -n "$VERSION" ] && [ "$BUMP" != "none" ]; then
-            echo "::error::Pick bump none to release the exact version $VERSION, or leave the version empty"
-            exit 1
+            echo "Releasing the exact version $VERSION; the $BUMP bump is ignored"
           fi
           if [ -n "$VERSION" ]; then target="$VERSION"; elif [ "$BUMP" = "none" ]; then target=current; else target="$BUMP"; fi
           git config user.name "github-actions[bot]"

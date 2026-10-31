@@ -1,8 +1,12 @@
 /**
  * The first date in `text`, resolved against `anchor` (ms), plus a time when
- * one is written. Returns null when there is no date.
+ * one is written. A written calendar date beats a weekday next to it
+ * ("Monday, 20/12/2026"). `order` reads 05/06 as day first unless
+ * 'month-first'. Returns null when there is no date.
  */
-export function parseDue(text: any, anchor?: number): {
+export function parseDue(text: any, anchor?: number, { order }?: {
+    order?: any;
+}): {
     date: string;
     time: string;
     span: number[];

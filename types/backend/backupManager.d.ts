@@ -60,5 +60,5 @@ export function importBackup(base: any, { buffer, filePath, recoveryKey, passwor
     attachmentsRestored: number;
     strictExport: boolean;
 }>;
-export function backupVersionFor(notes: any): 3 | 4;
+export function backupVersionFor(notes: any): 4 | 3;
 //# sourceMappingURL=backupManager.d.ts.map

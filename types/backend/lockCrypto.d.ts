@@ -4,12 +4,13 @@ export function rootKeyFromHex(value: any): any;
 export function isKeyringEntry(entry: any): boolean;
 export function compareKeyrings(a: any, b: any): 1 | 0 | -1;
 export function currentKeyring(entries: any): any;
-export function createKeyring(password: any, { params, now }?: {
+export function createKeyring(password: any, { params, now, legacy }?: {
     params?: {
         ops: number;
         mem: number;
     };
     now?: number;
+    legacy?: boolean;
 }): Promise<{
     entry: {
         id: any;
@@ -25,6 +26,22 @@ export function createKeyring(password: any, { params, now }?: {
     rootKey: any;
 }>;
 export function rewrapKeyring(rootKey: any, password: any, entry: any, { params }?: {
+    params?: {
+        ops: number;
+        mem: number;
+    };
+}): Promise<{
+    id: any;
+    v: number;
+    kdf: string;
+    ops: any;
+    mem: any;
+    salt: string;
+    wrapped: string;
+    check: string;
+    createdAt: any;
+}>;
+export function retireKeyring(rootKey: any, password: any, entry: any, { params }?: {
     params?: {
         ops: number;
         mem: number;
@@ -60,6 +77,7 @@ export namespace LOCK_KDF_PARAMS {
 export function secureBuffer(bytes: any): any;
 export function rootKeyToHex(key: any): string;
 export function keyringPrefId(keyringId: any): string;
+export function suggestsPasswordChange(entry: any): boolean;
 export function wrapHeldFileKey(rootKey: any, blobId: any, fileId: any, key: any): string;
 export function openHeldFileKeyInto(out: any, rootKey: any, blobId: any, fileId: any, wrapped: any): boolean;
 import { parseEnvelope } from './sealedEnvelope.js';

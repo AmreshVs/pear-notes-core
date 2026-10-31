@@ -1,7 +1,9 @@
 export function sealEnvelope(keyringId: any, key: any, html: any, previous: any): string;
 export function rememberCopies(replacements: any): void;
 export function unkeyedLinks(sealed: any): any[];
-export function createFirstKeyring(base: any, password: any): Promise<{
+export function createFirstKeyring(base: any, password: any, { legacy }?: {
+    legacy?: boolean;
+}): Promise<{
     id: any;
     v: number;
     kdf: string;

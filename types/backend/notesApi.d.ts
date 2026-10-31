@@ -189,6 +189,7 @@ export function openLockSession({ password, rootKey, returnRootKey }?: {}): Prom
     retryAfter: number;
     reason: string;
 }>;
+export const LOCK_CHANGE_SUGGESTED: "CHANGE_SUGGESTED";
 export function closeLockSession(): Promise<boolean>;
 export function setNoteLockPassword({ password }: {
     password: any;

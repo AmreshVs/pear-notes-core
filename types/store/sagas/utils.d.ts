@@ -1,4 +1,5 @@
 export function nextVaultEpoch(): void;
+export function isChannelClosed(e: any): boolean;
 export function apiSubscribeCall(api: any, cb: any, options?: {}): Generator<any, void, {
     stream: any;
 }>;

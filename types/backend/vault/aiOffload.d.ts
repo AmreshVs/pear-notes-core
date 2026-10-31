@@ -7,6 +7,8 @@ export const AI_OFFLOAD_STALL_MS: 60000;
 export const AI_OFFLOAD_MAX_OUTSTANDING: 2;
 export const AI_OFFLOAD_KEEPALIVE_MS: 5000;
 export const AI_OFFLOAD_WAIT_MS: number;
+export const AI_OFFLOAD_PROBE_EVERY_MS: 15000;
+export const AI_OFFLOAD_PROBE_TIMEOUT_MS: 5000;
 export const AI_OFFLOAD_ERROR: Readonly<{
     UNAVAILABLE: "unavailable";
     UNSUPPORTED: "unsupported";
@@ -25,7 +27,7 @@ export const AI_OFFLOAD_ERROR: Readonly<{
  * writer is a current member; the serving side checks again per job.
  */
 export class AiOffload {
-    constructor({ discoveryKey, verdict, onJob, onJobCancel, onStatus, firstReplyMs, stallMs, keepaliveMs, waitMs }: {
+    constructor({ discoveryKey, verdict, onJob, onJobCancel, onStatus, firstReplyMs, stallMs, keepaliveMs, waitMs, probeEveryMs, probeTimeoutMs }: {
         discoveryKey: any;
         verdict: any;
         onJob?: () => void;
@@ -35,6 +37,8 @@ export class AiOffload {
         stallMs?: number;
         keepaliveMs?: number;
         waitMs?: number;
+        probeEveryMs?: number;
+        probeTimeoutMs?: number;
     });
     discoveryKey: any;
     verdict: any;
@@ -45,6 +49,10 @@ export class AiOffload {
     stallMs: number;
     keepaliveMs: number;
     waitMs: number;
+    probeEveryMs: number;
+    probeTimeoutMs: number;
+    probes: Map<any, any>;
+    probeTimer: number;
     serving: boolean;
     closed: boolean;
     peers: Set<any>;
@@ -71,8 +79,13 @@ export class AiOffload {
     };
     cancel(id: any): void;
     reply(jobId: any, { text, done, error, data }?: {}): void;
+    /** Asks each serving member for a reply, so a connection that silently died stops counting. */
+    probe(): void;
     close(): void;
     _servingPeer(): any;
+    _setResponsive(peer: any, responsive: any): void;
+    _syncProbing(): void;
+    _stopProbing(): void;
     _send(peer: any, type: any, message: any): void;
     _sendHello(peer: any): void;
     _onHello(peer: any, message: any): void;

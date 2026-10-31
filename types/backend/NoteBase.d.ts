@@ -245,6 +245,7 @@ declare class NoteBase extends ReadyResource {
     pruneActivity(now?: number): Promise<1 | 0>;
     clearActivity(): Promise<void>;
     setSyncedPref(id: any, value: any): Promise<void>;
+    setSyncedPrefs(entries: any): Promise<void>;
     getSyncedPrefs(prefix?: string): Promise<{}>;
     getLockKeyrings(): Promise<any[]>;
     sealedKeyringIds(): Promise<Set<any>>;

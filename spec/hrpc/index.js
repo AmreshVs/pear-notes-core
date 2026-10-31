@@ -205,7 +205,9 @@ const methods = new Map([
   ['@notes/command-get-held-merge', 98],
   [98, '@notes/command-get-held-merge'],
   ['@notes/command-combine-held-merge', 99],
-  [99, '@notes/command-combine-held-merge']
+  [99, '@notes/command-combine-held-merge'],
+  ['@notes/command-subscribe-crash', 100],
+  [100, '@notes/command-subscribe-crash']
 ])
 
 class HRPC {
@@ -312,7 +314,8 @@ class HRPC {
       ['@notes/command-close-lock-session', getEncoding('@notes/command-close-lock-session-request')],
       ['@notes/command-check-backup-restore', getEncoding('@notes/command-check-backup-restore-request')],
       ['@notes/command-get-held-merge', getEncoding('@notes/command-get-held-merge-request')],
-      ['@notes/command-combine-held-merge', getEncoding('@notes/command-combine-held-merge-request')]
+      ['@notes/command-combine-held-merge', getEncoding('@notes/command-combine-held-merge-request')],
+      ['@notes/command-subscribe-crash', getEncoding('@notes/command-subscribe-crash-request')]
     ])
     this._responseEncodings = new Map([
       ['@notes/command-ready', getEncoding('@notes/command-ready-response')],
@@ -406,7 +409,8 @@ class HRPC {
       ['@notes/command-close-lock-session', getEncoding('@notes/command-close-lock-session-response')],
       ['@notes/command-check-backup-restore', getEncoding('@notes/command-check-backup-restore-response')],
       ['@notes/command-get-held-merge', getEncoding('@notes/command-get-held-merge-response')],
-      ['@notes/command-combine-held-merge', getEncoding('@notes/command-combine-held-merge-response')]
+      ['@notes/command-combine-held-merge', getEncoding('@notes/command-combine-held-merge-response')],
+      ['@notes/command-subscribe-crash', getEncoding('@notes/command-subscribe-crash-response')]
     ])
     this._rpc = new RPC(stream, async (req) => {
       const command = methods.get(req.command)
@@ -904,6 +908,10 @@ class HRPC {
     return this._call('@notes/command-combine-held-merge', args)
   }
 
+  commandSubscribeCrash(args) {
+    return this._callSync('@notes/command-subscribe-crash', args)
+  }
+
   onCommandReady(responseFn) {
     this._handlers['@notes/command-ready'] = responseFn
   }
@@ -1304,6 +1312,10 @@ class HRPC {
     this._handlers['@notes/command-combine-held-merge'] = responseFn
   }
 
+  onCommandSubscribeCrash(responseFn) {
+    this._handlers['@notes/command-subscribe-crash'] = responseFn
+  }
+
   _requestIsStream(command) {
     return [
     ].includes(command)
@@ -1329,7 +1341,8 @@ class HRPC {
       '@notes/command-subscribe-activity',
       '@notes/command-ai-offload-status',
       '@notes/command-ai-offload-run',
-      '@notes/command-ai-offload-jobs'
+      '@notes/command-ai-offload-jobs',
+      '@notes/command-subscribe-crash'
     ].includes(command)
   }
 

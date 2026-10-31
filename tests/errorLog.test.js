@@ -9,7 +9,8 @@ import {
   ErrorLog,
   captureDependencyConsole,
   captureFatalErrors,
-  errorLog
+  errorLog,
+  setCrashReporter
 } from '../backend/errorLog.js'
 import * as log from '../log.js'
 import { formatDebugReport, formatErrorLog } from '../utils.js'
@@ -185,6 +186,41 @@ test('a fatal error is recorded and then re-raised unchanged', (t) => {
   t.alike(rethrown, [boom], 're-raised')
   t.is(runtime.listenerCount('unhandledRejection'), 0, 'with our listeners removed')
   t.is(runtime.listenerCount('uncaughtException'), 0)
+})
+
+test('a fatal error reaches the crash reporter before it is re-raised', async (t) => {
+  const runtime = new EventEmitter()
+  const rethrown = []
+  const reported = []
+  setCrashReporter((crash) => reported.push(crash))
+  t.teardown(() => setCrashReporter(null))
+  captureFatalErrors(runtime, (err) => rethrown.push(err), 10)
+
+  const boom = new TypeError('boom')
+  runtime.emit('uncaughtException', boom)
+
+  t.is(reported.length, 1, 'reported straight away')
+  t.is(reported[0].kind, 'uncaughtException')
+  t.is(reported[0].error, 'TypeError: boom')
+  t.is(reported[0].stack, boom.stack)
+  t.alike(rethrown, [], 'not re-raised yet, so the report can leave the process')
+  await new Promise((resolve) => setTimeout(resolve, 30))
+  t.alike(rethrown, [boom], 're-raised after the flush delay')
+})
+
+test('a crash reporter that throws does not stop the crash', async (t) => {
+  const runtime = new EventEmitter()
+  const rethrown = []
+  setCrashReporter(() => {
+    throw new Error('reporter broke')
+  })
+  t.teardown(() => setCrashReporter(null))
+  captureFatalErrors(runtime, (err) => rethrown.push(err), 0)
+
+  const boom = new Error('boom')
+  runtime.emit('unhandledRejection', boom)
+  await new Promise((resolve) => setTimeout(resolve, 10))
+  t.alike(rethrown, [boom])
 })
 
 test('a fast-forward is recorded, and diagnostics show writers', async (t) => {

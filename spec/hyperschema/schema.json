@@ -1,5 +1,5 @@
 {
-  "version": 55,
+  "version": 56,
   "schema": [
     {
       "name": "backup-progress-schema",
@@ -4097,6 +4097,41 @@
           "name": "done",
           "type": "bool",
           "version": 54
+        }
+      ]
+    },
+    {
+      "name": "command-subscribe-crash-request",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "command-subscribe-crash-response",
+      "namespace": "notes",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "kind",
+          "type": "string",
+          "version": 56
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "version": 56
+        },
+        {
+          "name": "stack",
+          "type": "string",
+          "version": 56
+        },
+        {
+          "name": "at",
+          "type": "uint",
+          "version": 56
         }
       ]
     }

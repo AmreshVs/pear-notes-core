@@ -1,5 +1,5 @@
 {
-  "version": 31,
+  "version": 32,
   "schema": [
     {
       "id": 0,
@@ -1268,6 +1268,19 @@
         "stream": false
       },
       "version": 31
+    },
+    {
+      "id": 100,
+      "name": "@notes/command-subscribe-crash",
+      "request": {
+        "name": "@notes/command-subscribe-crash-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@notes/command-subscribe-crash-response",
+        "stream": true
+      },
+      "version": 32
     }
   ]
 }

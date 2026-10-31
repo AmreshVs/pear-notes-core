@@ -10,7 +10,13 @@ import { onLockSessionChange, readableNote } from './lockSession.js'
 import { buildNoteSummary } from '../utils.js'
 import SubscriptionTracker from './subscriptionTracker.js'
 import * as log from '../log.js'
-import { captureDependencyConsole, captureFatalErrors, captureLogs, errorLog } from './errorLog.js'
+import {
+  captureDependencyConsole,
+  captureFatalErrors,
+  captureLogs,
+  errorLog,
+  setCrashReporter
+} from './errorLog.js'
 import { formatLogArgs } from './logFormat.js'
 
 // The frontend's hrpc client gives short commands a 30s deadline (api.js
@@ -51,6 +57,23 @@ const isMobile = platform === 'android' || platform === 'ios'
 const ipc = isMobile ? BareKit.IPC : Bare.IPC
 const stream = new FramedStream(ipc)
 const rpc = new HRPC(stream)
+
+// Every frontend that subscribed hears the error that killed the backend, so it
+// can show it; nothing else outlives the process to tell it.
+const crashStreams = new Set()
+setCrashReporter((crash) => {
+  for (const crashStream of crashStreams) {
+    if (!crashStream.destroyed) crashStream.write(crash)
+  }
+})
+
+rpc.onCommandSubscribeCrash(async (crashStream) => {
+  crashStreams.add(crashStream)
+  crashStream.once('close', () => crashStreams.delete(crashStream))
+  return async () => {
+    crashStream.destroy()
+  }
+})
 
 const SHUTDOWN_TIMEOUT = 5000
 

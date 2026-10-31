@@ -482,6 +482,10 @@ export const backendApi = {
   clearStorage: async () => {
     return await getRPC().commandClearStorage()
   },
+  // Yields the backend's fatal error, once, just before it dies.
+  subscribeCrash: async () => {
+    return await getRPC().commandSubscribeCrash()
+  },
   subscribeStorageInfo: async () => {
     return await getRPC().commandSubscribeStorageInfo()
   },

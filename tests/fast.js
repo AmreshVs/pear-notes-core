@@ -1,6 +1,7 @@
 import './validation.test.js'
 import './folderValidation.test.js'
 import './noteDates.test.js'
+import './firstImageUrl.test.js'
 import './attachmentUrls.test.js'
 import './noteLockPassword.test.js'
 import './lockCrypto.test.js'

@@ -553,13 +553,21 @@ export function getNoteSummary(noteValue) {
 
 export function getFirstImageUrl(html) {
   if (!html) return undefined
-  const divMatch =
-    html.match(/<div[^>]*filetype="image\/[^"]*"[^>]*url="([^"]+)"[^>]*>/) ||
-    html.match(/<div[^>]*url="([^"]+)"[^>]*filetype="image\/[^"]*"[^>]*>/)
-  if (divMatch?.[1]) return divMatch[1].replace(/&amp;/g, '&')
-  const imgMatch = html.match(/<img[^>]+src="([^"]+)"/)
-  if (imgMatch?.[1]) return imgMatch[1].replace(/&amp;/g, '&')
-  return undefined
+  let imgUrl
+  let start = html.indexOf('<')
+  while (start !== -1) {
+    const close = html.indexOf('>', start)
+    const end = close === -1 ? html.length : close
+    const tag = html.slice(start, end)
+    if (close !== -1 && tag.startsWith('<div') && tag.includes('filetype="image/')) {
+      const url = tag.match(/url="([^"]+)"/)?.[1]
+      if (url) return url.replace(/&amp;/g, '&')
+    } else if (!imgUrl && tag.startsWith('<img')) {
+      imgUrl = tag.slice(5).match(/src="([^"]+)"/)?.[1]
+    }
+    start = html.indexOf('<', end)
+  }
+  return imgUrl ? imgUrl.replace(/&amp;/g, '&') : undefined
 }
 
 const SECONDS_IN_MINUTE = 60

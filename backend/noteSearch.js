@@ -1,6 +1,6 @@
 import { ALL_NOTES_KEY, RECENTLY_DELETED_KEY, SEARCH_QUERY_MAX_LENGTH } from '../constant.js'
 import { ATTACHMENT_KIND, getNoteAttachments } from '../store/services/noteAttachments.js'
-import { extractNoteTasks, resolveYearly } from '../store/services/noteTasks.js'
+import { extractNoteTasks, resolveRecurring } from '../store/services/noteTasks.js'
 import { envelopeLinks } from './sealedEnvelope.js'
 
 export const SEARCH_RESULT_LIMIT = 1000
@@ -383,7 +383,7 @@ export class NoteSearchIndex {
     for (const [key, entry] of this.entries) {
       if (entry.locked || entry.folderKey === RECENTLY_DELETED_KEY) continue
       for (const task of entry.tasks) {
-        tasks.push({ ...resolveYearly(task, now), noteKey: key, title: entry.title })
+        tasks.push({ ...resolveRecurring(task, now), noteKey: key, title: entry.title })
       }
     }
     return tasks

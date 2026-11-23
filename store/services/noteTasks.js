@@ -106,11 +106,128 @@ const TIME_RULES = [
   { re: /\b(noon|midday)\b/i, kind: 'noon' }
 ]
 
+export const REPEAT_UNIT = Object.freeze({
+  DAY: 'day',
+  WEEK: 'week',
+  MONTH: 'month',
+  YEAR: 'year'
+})
+
+const ORDINAL_WORDS = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, last: -1 }
+const ORDINAL_PATTERN = `\\d{1,2}(?:st|nd|rd|th)?|${Object.keys(ORDINAL_WORDS).join('|')}`
+const EVERY_COUNT_PATTERN = `${COUNT_PATTERN}|other`
+const WEEKDAY_LIST_PATTERN = `(?:${WEEKDAY_PATTERN})s?(?:\\s*(?:,|&|and|\\/)\\s*(?:${WEEKDAY_PATTERN})s?)*`
+const WEEKDAY_WORD = new RegExp(`\\b(?:${WEEKDAY_PATTERN})s?\\b`, 'gi')
+const PLURAL_WEEKDAY = /\b(sundays|mondays|tuesdays|wednesdays|thursdays|fridays|saturdays)\b/i
+const WORK_WEEK = [1, 2, 3, 4, 5]
+const WEEKEND_DAYS = [0, 6]
+const MAX_MONTH_DAY = 31
+
+const ordinalOf = (text) => {
+  const word = String(text).toLowerCase()
+  if (word in ORDINAL_WORDS) return ORDINAL_WORDS[word]
+  const n = parseInt(word, 10)
+  return n >= 1 && n <= MAX_MONTH_DAY ? n : null
+}
+const everyCount = (text) => (!text ? 1 : /other/i.test(text) ? 2 : countOf(text))
+const weekdaysIn = (text) => [
+  ...new Set((text.match(WEEKDAY_WORD) || []).map((word) => weekdayIndex(word)))
+]
+
+// Most specific first: "first Monday of every month" before "every Monday".
+const REPEAT_RULES = [
+  {
+    re: new RegExp(
+      `\\b(${ORDINAL_PATTERN})\\s+(${WEEKDAY_PATTERN})\\s+of\\s+(?:every|each)\\s+(?:(${EVERY_COUNT_PATTERN})\\s+)?months?\\b`,
+      'i'
+    ),
+    build: (m) => {
+      const nth = ordinalOf(m[1])
+      if (!nth || nth > 5) return null
+      return {
+        unit: REPEAT_UNIT.MONTH,
+        interval: everyCount(m[3]),
+        nth,
+        weekdays: [weekdayIndex(m[2])]
+      }
+    }
+  },
+  {
+    re: new RegExp(
+      `\\b(?:on\\s+)?(?:the\\s+)?(${ORDINAL_PATTERN})(?:\\s+day)?\\s+of\\s+(?:every|each)\\s+(?:(${EVERY_COUNT_PATTERN})\\s+)?months?\\b`,
+      'i'
+    ),
+    build: (m) => {
+      const day = ordinalOf(m[1])
+      return day ? { unit: REPEAT_UNIT.MONTH, interval: everyCount(m[2]), day } : null
+    }
+  },
+  {
+    re: new RegExp(
+      `\\b(?:(?:every|each)\\s+(?:(${EVERY_COUNT_PATTERN})\\s+)?months?|monthly)\\s+(?:on\\s+)?(?:the\\s+)?(${ORDINAL_PATTERN})(?:\\s+day)?\\b(?![\\s-]+(?:of\\s+)?(?:${MONTH_PATTERN})\\b)`,
+      'i'
+    ),
+    build: (m) => {
+      const day = ordinalOf(m[2])
+      return day ? { unit: REPEAT_UNIT.MONTH, interval: everyCount(m[1]), day } : null
+    }
+  },
+  {
+    re: /\b(?:every|each)\s+week\s?days?\b|\bon\s+week\s?days\b|\bweekdays\b/i,
+    build: () => ({ unit: REPEAT_UNIT.WEEK, interval: 1, weekdays: WORK_WEEK })
+  },
+  {
+    re: /\b(?:every|each)\s+weekends?\b|\bon\s+weekends\b/i,
+    build: () => ({ unit: REPEAT_UNIT.WEEK, interval: 1, weekdays: WEEKEND_DAYS })
+  },
+  {
+    re: new RegExp(
+      `\\b(?:(?:every|each)\\s+(?:(${EVERY_COUNT_PATTERN})\\s+)?(?:weeks?\\s+on\\s+)?|weekly\\s+on\\s+)(${WEEKDAY_LIST_PATTERN})\\b`,
+      'i'
+    ),
+    build: (m) => ({
+      unit: REPEAT_UNIT.WEEK,
+      interval: everyCount(m[1]),
+      weekdays: weekdaysIn(m[2])
+    })
+  },
+  {
+    re: new RegExp(`\\b(?:on\\s+)?(${WEEKDAY_LIST_PATTERN})\\b`, 'i'),
+    build: (m) =>
+      PLURAL_WEEKDAY.test(m[0])
+        ? { unit: REPEAT_UNIT.WEEK, interval: 1, weekdays: weekdaysIn(m[1]) }
+        : null
+  },
+  {
+    re: new RegExp(
+      `\\b(?:every|each)\\s+(?:(${EVERY_COUNT_PATTERN})\\s+)?(day|week|fortnight|month|year)s?\\b`,
+      'i'
+    ),
+    build: (m) => {
+      const unit = m[2].toLowerCase()
+      if (unit === 'fortnight') return { unit: REPEAT_UNIT.WEEK, interval: 2 * everyCount(m[1]) }
+      return { unit, interval: everyCount(m[1]) }
+    }
+  },
+  {
+    re: /\beveryday\b(?=\s*(?:$|[.,;:!)\-–—]|at\b|from\b|in\b|by\b|before\b|after\b|around\b|morning|evening|night|afternoon|\d))/i,
+    build: () => ({ unit: REPEAT_UNIT.DAY, interval: 1 })
+  },
+  {
+    re: /\b(?:daily|nightly|every\s+(?:morning|evening|night|afternoon))\b/i,
+    build: () => ({ unit: REPEAT_UNIT.DAY, interval: 1 })
+  },
+  { re: /\b(?:weekly)\b/i, build: () => ({ unit: REPEAT_UNIT.WEEK, interval: 1 }) },
+  { re: /\bfortnightly\b/i, build: () => ({ unit: REPEAT_UNIT.WEEK, interval: 2 }) },
+  { re: /\bmonthly\b/i, build: () => ({ unit: REPEAT_UNIT.MONTH, interval: 1 }) },
+  { re: /\b(?:yearly|annually)\b/i, build: () => ({ unit: REPEAT_UNIT.YEAR, interval: 1 }) }
+]
+
 // A plain line (not a checklist item) counts as a task only with one of these.
 const ACTION_START =
-  /^(?:(?:to\s?-?do|reminder|task):?\s*)?(?:(?:please|remember to|don'?t forget to|need to|have to|must|i need to|i have to)\s+)?(?:call|ring|phone|email|e-mail|text|message|send|pay|book|buy|get|pick up|drop off|collect|bring|submit|file|renew|cancel|return|finish|prepare|review|check|confirm|schedule|remind|meet|visit|order|fix|clean|update|ask|tell|follow up|sign|print|post|reply|write|read|call back|remember|don'?t forget|transfer|deposit|top up|recharge|register|apply|attend|complete|deliver|ship|plan|arrange)\b/i
+  /^(?:(?:to\s?-?do|reminder|task):?\s*)?(?:(?:please|remember to|don'?t forget to|need to|have to|must|i need to|i have to)\s+)?(?:take|feed|water|refill|charge|wash|call|ring|phone|email|e-mail|text|message|send|pay|book|buy|get|pick up|drop off|collect|bring|submit|file|renew|cancel|return|finish|prepare|review|check|confirm|schedule|remind|meet|visit|order|fix|clean|update|ask|tell|follow up|sign|print|post|reply|write|read|call back|remember|don'?t forget|transfer|deposit|top up|recharge|register|apply|attend|complete|deliver|ship|plan|arrange)\b/i
 const DUE_CUE =
-  /\b(?:due|deadline|by|before|until|remind me|remind|reminder|appointment|meeting|interview|flight|dentist|doctor|pay|payment|bill|rent|emi|invoice|renewal|renew|expires?|expiry|expiring|exam|party|wedding|trip|checkup|check-up|vet|haircut)\b/i
+  /\b(?:due|deadline|by|before|until|remind me|remind|reminder|appointment|meeting|interview|flight|dentist|doctor|pay|payment|bill|rent|emi|invoice|renewal|renew|expires?|expiry|expiring|exam|party|wedding|trip|checkup|check-up|vet|haircut|medicines?|tablets?|pills?|meds|dose|premium|subscription|sip|salary|fees?|gym|class|lesson|tuition|practice|stand-?up|sync|review|club|workout|yoga)\b/i
 const PAST_CUE = /\b(?:was|were|went|had|did|met|called|ago|last|yesterday|happened)\b/i
 // A line, or a note titled, like this lists dates that come back every year.
 const YEARLY_CUE =
@@ -243,6 +360,140 @@ function resolveTime(match, kind) {
   return `${pad(hour)}:${pad(minute)}`
 }
 
+const daysBetween = (from, to) =>
+  Math.round(
+    (Date.UTC(to.getFullYear(), to.getMonth(), to.getDate()) -
+      Date.UTC(from.getFullYear(), from.getMonth(), from.getDate())) /
+      86400000
+  )
+
+const monthLength = (year, month) => new Date(year, month + 1, 0).getDate()
+
+function nthWeekdayOf(year, month, nth, weekday) {
+  if (nth < 0) {
+    const last = new Date(year, month, monthLength(year, month))
+    return addDays(last, -((last.getDay() - weekday + 7) % 7))
+  }
+  const first = new Date(year, month, 1)
+  const date = addDays(first, ((weekday - first.getDay() + 7) % 7) + (nth - 1) * 7)
+  return date.getMonth() === month ? date : null
+}
+
+function monthlyDate(repeat, year, month) {
+  if (repeat.nth) return nthWeekdayOf(year, month, repeat.nth, repeat.weekdays[0])
+  const length = monthLength(year, month)
+  return new Date(year, month, repeat.day < 0 ? length : Math.min(repeat.day, length))
+}
+
+const MAX_REPEAT_STEPS = 800
+
+/** The first day on or after `from` that a repeat starting on `start` lands on. */
+export function nextRepeatDate(repeat, start, from) {
+  const first = startOfDay(start)
+  const floor = startOfDay(Math.max(first.getTime(), startOfDay(from).getTime()))
+  const interval = Math.max(1, repeat.interval || 1)
+  if (repeat.unit === REPEAT_UNIT.DAY) {
+    return addDays(first, Math.ceil(daysBetween(first, floor) / interval) * interval)
+  }
+  if (repeat.unit === REPEAT_UNIT.WEEK) {
+    const days = repeat.weekdays?.length ? repeat.weekdays : [first.getDay()]
+    const firstWeek = addDays(first, -first.getDay())
+    for (let step = 0; step < MAX_REPEAT_STEPS; step++) {
+      const date = addDays(floor, step)
+      const week = Math.floor(daysBetween(firstWeek, date) / 7)
+      if (week % interval === 0 && days.includes(date.getDay())) return date
+    }
+    return null
+  }
+  const months = repeat.unit === REPEAT_UNIT.YEAR ? 12 * interval : interval
+  const startMonth = first.getFullYear() * 12 + first.getMonth()
+  const floorMonth = floor.getFullYear() * 12 + floor.getMonth()
+  let offset = Math.max(0, Math.floor((floorMonth - startMonth) / months) * months)
+  for (let step = 0; step < MAX_REPEAT_STEPS; step++, offset += months) {
+    const year = first.getFullYear() + Math.floor((first.getMonth() + offset) / 12)
+    const month = (first.getMonth() + offset) % 12
+    const date =
+      repeat.unit === REPEAT_UNIT.YEAR
+        ? new Date(year, month, Math.min(repeat.day || first.getDate(), monthLength(year, month)))
+        : monthlyDate(repeat, year, month)
+    if (date && date >= floor) return date
+  }
+  return null
+}
+
+/**
+ * How often a line repeats ("every day", "1st of every month", "every Monday
+ * and Thursday", "first Friday of each month"), or null when it doesn't.
+ */
+export function parseRepeat(text) {
+  const value = String(text ?? '')
+  for (const rule of REPEAT_RULES) {
+    const match = value.match(rule.re)
+    if (!match) continue
+    const repeat = rule.build(match)
+    if (!repeat || !(repeat.interval >= 1)) continue
+    if (repeat.weekdays && (!repeat.weekdays.length || repeat.weekdays.some((d) => d < 0))) continue
+    return { ...repeat, span: [match.index, match.index + match[0].length] }
+  }
+  return null
+}
+
+function parseTime(text) {
+  for (const rule of TIME_RULES) {
+    const match = text.match(rule.re)
+    if (!match) continue
+    const time = resolveTime(match, rule.kind)
+    if (time) return time
+  }
+  return null
+}
+
+const blank = (text, [from, to]) => text.slice(0, from) + ' '.repeat(to - from) + text.slice(to)
+
+/**
+ * A repeating line's first date on or after the day it was written. A date
+ * written next to it ("monthly from 5 Jan", "every year on 3 March") sets
+ * the day it falls on.
+ */
+function repeatingDue(text, anchor, order) {
+  const repeat = parseRepeat(text)
+  if (!repeat) return null
+  const { span, ...rule } = repeat
+  let rest = blank(text, span)
+  const written = parseDue(rest, anchor, { order })
+  const start = written?.calendar ? new Date(`${written.date}T00:00:00`) : startOfDay(anchor)
+  if (written?.calendar) rest = blank(rest, written.span)
+  if (rule.unit === REPEAT_UNIT.WEEK && !rule.weekdays) {
+    const named = weekdaysIn(rest)
+    if (named.length && named.every((d) => d >= 0)) rule.weekdays = named
+  }
+  if (rule.unit === REPEAT_UNIT.MONTH && !rule.day && !rule.nth) rule.day = start.getDate()
+  if (rule.unit === REPEAT_UNIT.YEAR) rule.day = start.getDate()
+  const date = nextRepeatDate(rule, start, start)
+  if (!date) return null
+  return {
+    date: isoDate(date),
+    time: written?.time ?? parseTime(rest),
+    repeat: { ...rule, from: isoDate(start) },
+    phrase: span
+  }
+}
+
+/** A repeating task moved to its next occurrence; today's counts until its time has passed. */
+export function resolveRepeat(task, now = Date.now()) {
+  if (!task.repeat?.from) return task
+  const start = new Date(`${task.repeat.from}T00:00:00`)
+  let date = nextRepeatDate(task.repeat, start, now)
+  if (date && task.time && reminderAt({ date: isoDate(date), time: task.time }) <= now) {
+    date = nextRepeatDate(task.repeat, start, addDays(startOfDay(now), 1))
+  }
+  return date ? { ...task, date: isoDate(date) } : task
+}
+
+/** A yearly or repeating task moved to its next occurrence. */
+export const resolveRecurring = (task, now = Date.now()) =>
+  task.repeat ? resolveRepeat(task, now) : resolveYearly(task, now)
+
 // 2.4.10 is a version number; 02.04.10 and 2.4.2010 are dates.
 const looksLikeVersion = (match) =>
   match[0].includes('.') && match[3].length === 2 && (match[1].length < 2 || match[2].length < 2)
@@ -345,10 +596,13 @@ function typedLines(line) {
 }
 
 const looksLikeTask = (text, due) => {
-  const rest = text.slice(0, due.span[0]) + text.slice(due.span[1])
+  const rest = due.span ? text.slice(0, due.span[0]) + text.slice(due.span[1]) : text
   if (PAST_CUE.test(text)) return false
   return ACTION_START.test(text.trim()) || DUE_CUE.test(rest) || due.time !== null
 }
+
+// A time alone doesn't make a repeating line a task: "Train at 7:42, every weekday" is a timetable.
+const looksLikeRepeatingTask = (text) => ACTION_START.test(text.trim()) || DUE_CUE.test(text)
 
 // 13/10/1962, 13.10.62, 10-13: read only where dates are known to be yearly,
 // since elsewhere "3/11" is as likely a fraction or a score as a date.
@@ -450,6 +704,21 @@ export function extractNoteTasks(
       !ACTION_START.test(line.text) &&
       line.text.length <= 160 &&
       (yearlyNote || YEARLY_CUE.test(line.text))
+    const repeating = yearlyContext ? null : repeatingDue(line.text, anchor, order)
+    if (repeating) {
+      const unrepeated = blank(line.text, repeating.phrase)
+      if (line.text.length > 160 || PAST_CUE.test(unrepeated)) continue
+      if (!line.checklist && !line.typedBox && !looksLikeRepeatingTask(unrepeated)) continue
+      tasks.push({
+        text,
+        date: repeating.date,
+        time: repeating.time,
+        checklist: line.checklist,
+        repeat: repeating.repeat,
+        ...(line.checked ? { done: true } : {})
+      })
+      continue
+    }
     const due = yearlyContext
       ? yearlyDue(line.text, anchor, anchorYear, order)
       : parseDue(line.text, anchor, { order })
@@ -542,7 +811,7 @@ export function groupUpcoming(tasks, now = Date.now(), { doneIds = null } = {}) 
   const pastStart = isoDate(addDays(startOfDay(now), -PAST_DAYS))
   const groups = Object.fromEntries(Object.values(UPCOMING_GROUP).map((group) => [group, []]))
   const sorted = tasks
-    .map((task) => resolveYearly(task, now))
+    .map((task) => resolveRecurring(task, now))
     .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '99').localeCompare(b.time ?? '99'))
   for (const task of sorted) {
     if (task.done || doneIds?.has(taskDoneId(task))) {
@@ -576,7 +845,7 @@ export function getNoteFindings(
 ) {
   const today = isoDate(startOfDay(now))
   return extractNoteTasks(html, { anchor, title })
-    .map((task) => resolveYearly({ ...task, noteKey }, now))
+    .map((task) => resolveRecurring({ ...task, noteKey }, now))
     .filter((task) => !task.done && !doneIds?.has(taskDoneId(task)) && task.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '99').localeCompare(b.time ?? '99'))
     .slice(0, NOTE_FINDINGS_MAX)
@@ -721,6 +990,21 @@ export function dueReminders(
 
 export const REMINDER_HORIZON_DAYS = 14
 
+/** Every occurrence of a repeating task from `now` up to `until`; any other task as it is. */
+export function occurrencesUntil(task, until, now = Date.now()) {
+  if (!task.repeat?.from) return [task]
+  const start = new Date(`${task.repeat.from}T00:00:00`)
+  const out = []
+  let from = new Date(startOfDay(now))
+  for (let date = nextRepeatDate(task.repeat, start, from); date;) {
+    if (date.getTime() > until) break
+    out.push({ ...task, date: isoDate(date) })
+    from = addDays(date, 1)
+    date = nextRepeatDate(task.repeat, start, from)
+  }
+  return out
+}
+
 /** Reminders to hand to the phone's scheduler: upcoming only, soonest first. */
 export function buildReminderItems(
   tasks,
@@ -728,6 +1012,7 @@ export function buildReminderItems(
 ) {
   const until = now + REMINDER_HORIZON_DAYS * 24 * 60 * 60 * 1000
   return tasks
+    .flatMap((task) => occurrencesUntil(task, until, now))
     .filter((task) => remindable(task, doneIds))
     .flatMap((task) => reminderTimes(task, prefs).map((time) => ({ task, ...time })))
     .filter(({ atMs }) => atMs > now && atMs <= until)

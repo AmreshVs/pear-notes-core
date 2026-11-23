@@ -5,8 +5,10 @@ import {
   countOpenUpcoming,
   extractNoteTasks,
   getNoteFindings,
+  buildReminderItems,
   groupUpcoming,
   parseDue,
+  resolveRecurring,
   splitYearly,
   taskDoneId
 } from '../store/services/noteTasks.js'
@@ -455,4 +457,65 @@ test('a timed line that is not an action reads as an appointment', (t) => {
   t.absent(isAppointment(task('Dentist', { time: null })))
   t.absent(isAppointment(task('Dentist', { checklist: true })))
   t.absent(isAppointment(task('Dentist', { done: true })))
+})
+
+const REPEAT_CASES = [
+  ['Pay Rs. 1000 to Pulugurajan on 1st day of every month', '2026-11-01', null],
+  ['Take tablet at 9:00AM everyday', '2026-10-10', '09:00'],
+  ['Take vitamin D every morning', '2026-10-10', null],
+  ['Gym every Monday and Thursday at 7pm', '2026-10-12', '19:00'],
+  ['Team sync every weekday 10am', '2026-10-12', '10:00'],
+  ['Pay rent on the 5th of each month', '2026-11-05', null],
+  ['Pay credit card bill monthly on the 20th', '2026-10-20', null],
+  ['Book club first Friday of every month at 6pm', '2026-11-06', '18:00'],
+  ['Pay electricity bill on the last day of every month', '2026-10-31', null],
+  ['Take out trash on Tuesdays', '2026-10-13', null],
+  ['Call mom every other day', '2026-10-10', null],
+  ['Renew insurance every year on 3 March', '2027-03-03', null]
+]
+
+test('repeating lines become tasks on their next day', (t) => {
+  for (const [text, date, time] of REPEAT_CASES) {
+    const tasks = extractNoteTasks(para(text), { anchor: ANCHOR })
+    t.is(tasks.length, 1, text)
+    t.ok(tasks[0]?.repeat, `${text} repeats`)
+    t.alike([tasks[0]?.date, tasks[0]?.time], [date, time], text)
+  }
+})
+
+test('repeat words alone do not make a task', (t) => {
+  for (const text of [
+    'I used to walk every day',
+    'Buy everyday groceries',
+    'Train at 7:42 from platform 3, every weekday'
+  ]) {
+    t.absent(
+      extractNoteTasks(para(text), { anchor: ANCHOR }).some((task) => task.repeat),
+      text
+    )
+  }
+})
+
+test('a repeating task moves on once its time has passed', (t) => {
+  const [daily] = extractNoteTasks(para('Take tablet at 9:00AM everyday'), { anchor: ANCHOR })
+  const before = new Date(2026, 9, 20, 8, 0).getTime()
+  const after = new Date(2026, 9, 20, 10, 0).getTime()
+  t.is(resolveRecurring(daily, before).date, '2026-10-20')
+  t.is(resolveRecurring(daily, after).date, '2026-10-21')
+  const [monthly] = extractNoteTasks(para('Pay rent on the 31st of every month'), {
+    anchor: ANCHOR
+  })
+  t.is(resolveRecurring(monthly, new Date(2026, 10, 2).getTime()).date, '2026-11-30')
+})
+
+test('a daily reminder is scheduled for every day in the window', (t) => {
+  const [daily] = extractNoteTasks(para('Take tablet at 9:00AM everyday'), { anchor: ANCHOR })
+  const items = buildReminderItems([{ ...daily, noteKey: 'n' }], {
+    now: new Date(2026, 9, 10, 10, 0).getTime(),
+    linkFor: () => '',
+    bodyFor: () => ''
+  })
+  t.is(items.length, 14)
+  t.is(new Set(items.map((item) => item.id)).size, 14)
+  t.is(new Date(items[0].atMs).getDate(), 11)
 })

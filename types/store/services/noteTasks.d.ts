@@ -1,3 +1,16 @@
+/** The first day on or after `from` that a repeat starting on `start` lands on. */
+export function nextRepeatDate(repeat: any, start: any, from: any): Date;
+/**
+ * How often a line repeats ("every day", "1st of every month", "every Monday
+ * and Thursday", "first Friday of each month"), or null when it doesn't.
+ */
+export function parseRepeat(text: any): {
+    span: number[];
+    unit: any;
+    interval: any;
+};
+/** A repeating task moved to its next occurrence; today's counts until its time has passed. */
+export function resolveRepeat(task: any, now?: number): any;
 /**
  * The first date in `text`, resolved against `anchor` (ms), plus a time when
  * one is written. A written calendar date beats a weekday next to it
@@ -26,6 +39,17 @@ export function extractNoteTasks(html: any, { anchor, title, maxTextLength }?: {
     title?: string;
     maxTextLength?: number;
 }): ({
+    done?: boolean;
+    text: any;
+    date: string;
+    time: string;
+    checklist: any;
+    repeat: {
+        from: string;
+        unit: any;
+        interval: any;
+    };
+} | {
     name?: string;
     yearly?: boolean;
     sinceYear?: number;
@@ -107,6 +131,8 @@ export function dueReminders(tasks: any, { since, now, graceMs, prefs, doneIds }
     prefs: any;
     doneIds?: any;
 }): any;
+/** Every occurrence of a repeating task from `now` up to `until`; any other task as it is. */
+export function occurrencesUntil(task: any, until: any, now?: number): any[];
 /** Reminders to hand to the phone's scheduler: upcoming only, soonest first. */
 export function buildReminderItems(tasks: any, { now, linkFor, bodyFor, prefs, doneIds }: {
     now?: number;
@@ -115,6 +141,13 @@ export function buildReminderItems(tasks: any, { now, linkFor, bodyFor, prefs, d
     prefs: any;
     doneIds?: any;
 }): any;
+export const REPEAT_UNIT: Readonly<{
+    DAY: "day";
+    WEEK: "week";
+    MONTH: "month";
+    YEAR: "year";
+}>;
+export function resolveRecurring(task: any, now?: number): any;
 export const UPCOMING_GROUP: Readonly<{
     OVERDUE: "overdue";
     TODAY: "today";

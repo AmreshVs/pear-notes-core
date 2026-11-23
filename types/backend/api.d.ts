@@ -268,6 +268,7 @@ export namespace backendApi {
     }): Promise<boolean>;
     function subscribeDeviceStatus(): Promise<any>;
     function clearStorage(): Promise<any>;
+    function subscribeCrash(): Promise<any>;
     function subscribeStorageInfo(): Promise<any>;
     function exportBackup({ password, filePath }: {
         password: any;

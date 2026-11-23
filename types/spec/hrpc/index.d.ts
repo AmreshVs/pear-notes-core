@@ -116,6 +116,7 @@ declare class HRPC {
     commandCheckBackupRestore(args: any): Promise<any>;
     commandGetHeldMerge(args: any): Promise<any>;
     commandCombineHeldMerge(args: any): Promise<any>;
+    commandSubscribeCrash(args: any): any;
     onCommandReady(responseFn: any): void;
     onCommandDestroy(responseFn: any): void;
     onCommandChore(responseFn: any): void;
@@ -216,6 +217,7 @@ declare class HRPC {
     onCommandCheckBackupRestore(responseFn: any): void;
     onCommandGetHeldMerge(responseFn: any): void;
     onCommandCombineHeldMerge(responseFn: any): void;
+    onCommandSubscribeCrash(responseFn: any): void;
     _requestIsStream(command: any): boolean;
     _responseIsStream(command: any): boolean;
     _requestIsSend(command: any): boolean;

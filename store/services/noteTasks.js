@@ -602,9 +602,13 @@ function typedLines(line) {
     const boxText = text.slice(box[0].length).trim()
     return [{ checklist: false, checked: /x/i.test(box[1]), typedBox: true, text: boxText }]
   }
-  const parts = text.length > LONG_LINE ? text.split(SENTENCE_END) : [text]
-  return parts.map((part) => ({ checklist: false, checked: false, text: part.trim() }))
+  const inParagraph = text.length > LONG_LINE
+  const parts = inParagraph ? text.split(SENTENCE_END) : [text]
+  return parts.map((part) => ({ checklist: false, checked: false, inParagraph, text: part.trim() }))
 }
+
+// A sentence inside a paragraph is narration ("So I will host today's meeting") unless it gives an order.
+const isNarration = (line) => !!line.inParagraph && !ACTION_START.test(line.text.trim())
 
 const looksLikeTask = (text, due) => {
   const rest = due.span ? text.slice(0, due.span[0]) + text.slice(due.span[1]) : text
@@ -718,7 +722,7 @@ export function extractNoteTasks(
     const repeating = yearlyContext ? null : repeatingDue(line.text, anchor, order)
     if (repeating) {
       const unrepeated = blank(line.text, repeating.phrase)
-      if (line.text.length > 160 || PAST_CUE.test(unrepeated)) continue
+      if (line.text.length > 160 || PAST_CUE.test(unrepeated) || isNarration(line)) continue
       if (!line.checklist && !line.typedBox && !looksLikeRepeatingTask(unrepeated)) continue
       tasks.push({
         text,
@@ -752,7 +756,7 @@ export function extractNoteTasks(
     if (
       !line.checklist &&
       !line.typedBox &&
-      (line.text.length > 160 || !looksLikeTask(line.text, due))
+      (line.text.length > 160 || isNarration(line) || !looksLikeTask(line.text, due))
     )
       continue
     tasks.push({

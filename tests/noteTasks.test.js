@@ -524,3 +524,14 @@ test('a daily reminder is scheduled for every day in the window', (t) => {
   t.is(new Set(items.map((item) => item.id)).size, 14)
   t.is(new Date(items[0].atMs).getDate(), 11)
 })
+
+test('sentences inside a paragraph count only when they give an order', (t) => {
+  const paragraph = para(
+    "Hello everyone, Christine is on a different timezone and Fred is off today. So I will host today's meeting. So anyone have any other topics to discuss, if not we can move to the weekly review. Call Fred tomorrow about the release."
+  )
+  const tasks = extractNoteTasks(paragraph, { anchor: ANCHOR })
+  t.alike(
+    tasks.map((task) => task.text),
+    ['Call Fred tomorrow about the release.']
+  )
+})

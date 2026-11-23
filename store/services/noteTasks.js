@@ -455,12 +455,23 @@ const blank = (text, [from, to]) => text.slice(0, from) + ' '.repeat(to - from) 
  * written next to it ("monthly from 5 Jan", "every year on 3 March") sets
  * the day it falls on.
  */
+const START_CUE =
+  /\b(?:from|since|starting|starts|beginning|begins|effective)\s+(?:on\s+)?(?:the\s+)?$/i
+
+// "Weekly meeting notes - 28/01/25" records a meeting that already happened, unless the date starts the repeat.
+const recordsPastDate = (text, written, anchor) =>
+  !!written?.calendar &&
+  written.explicitYear &&
+  written.date < isoDate(startOfDay(anchor)) &&
+  !START_CUE.test(text.slice(0, written.span[0]))
+
 function repeatingDue(text, anchor, order) {
   const repeat = parseRepeat(text)
   if (!repeat) return null
   const { span, ...rule } = repeat
   let rest = blank(text, span)
   const written = parseDue(rest, anchor, { order })
+  if (recordsPastDate(rest, written, anchor)) return null
   const start = written?.calendar ? new Date(`${written.date}T00:00:00`) : startOfDay(anchor)
   if (written?.calendar) rest = blank(rest, written.span)
   if (rule.unit === REPEAT_UNIT.WEEK && !rule.weekdays) {
@@ -469,7 +480,7 @@ function repeatingDue(text, anchor, order) {
   }
   if (rule.unit === REPEAT_UNIT.MONTH && !rule.day && !rule.nth) rule.day = start.getDate()
   if (rule.unit === REPEAT_UNIT.YEAR) rule.day = start.getDate()
-  const date = nextRepeatDate(rule, start, start)
+  const date = nextRepeatDate(rule, start, Math.max(start.getTime(), startOfDay(anchor).getTime()))
   if (!date) return null
   return {
     date: isoDate(date),

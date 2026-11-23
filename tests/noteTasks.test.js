@@ -471,7 +471,9 @@ const REPEAT_CASES = [
   ['Pay electricity bill on the last day of every month', '2026-10-31', null],
   ['Take out trash on Tuesdays', '2026-10-13', null],
   ['Call mom every other day', '2026-10-10', null],
-  ['Renew insurance every year on 3 March', '2027-03-03', null]
+  ['Renew insurance every year on 3 March', '2027-03-03', null],
+  ['Pay rent monthly starting 1/1/2025', '2026-11-01', null],
+  ['Weekly team meeting Friday 5pm', '2026-10-16', '17:00']
 ]
 
 test('repeating lines become tasks on their next day', (t) => {
@@ -487,7 +489,10 @@ test('repeat words alone do not make a task', (t) => {
   for (const text of [
     'I used to walk every day',
     'Buy everyday groceries',
-    'Train at 7:42 from platform 3, every weekday'
+    'Train at 7:42 from platform 3, every weekday',
+    'Weekly meeting notes - 28/01/25)',
+    'Weekly meeting notes - 26/11/2024',
+    'Monthly review meeting 3 March 2025'
   ]) {
     t.absent(
       extractNoteTasks(para(text), { anchor: ANCHOR }).some((task) => task.repeat),

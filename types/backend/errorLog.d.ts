@@ -1,6 +1,7 @@
 export function captureLogs(): void;
 export function captureDependencyConsole(target?: Console): void;
-export function captureFatalErrors(runtime: any, rethrow?: typeof rethrowLater): void;
+export function setCrashReporter(reporter: any): void;
+export function captureFatalErrors(runtime: any, rethrow?: typeof rethrowLater, flushMs?: number): void;
 export class ErrorLog {
     constructor({ max }?: {
         max?: number;

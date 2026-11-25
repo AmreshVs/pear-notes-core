@@ -96,8 +96,11 @@ export const getTotalStorageSize = (state) => {
   return blobBytes + contentBytes
 }
 
-export function mediaKind(name = '') {
-  const ext = name.toLowerCase().split('.').pop()
+export function mediaKind(name) {
+  const ext = String(name ?? '')
+    .toLowerCase()
+    .split('.')
+    .pop()
   if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'svg', 'bmp'].includes(ext)) return 'image'
   if (['mp4', 'mov', 'webm', 'mkv', 'avi', 'm4v'].includes(ext)) return 'video'
   if (['mp3', 'm4a', 'wav', 'ogg', 'opus', 'aac', 'flac'].includes(ext)) return 'audio'

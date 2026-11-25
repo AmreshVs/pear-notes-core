@@ -1,4 +1,4 @@
-export function mediaKind(name?: string): "image" | "video" | "audio" | "file";
+export function mediaKind(name: any): "image" | "video" | "audio" | "file";
 export const setNotesStorageInfo: import("@reduxjs/toolkit").ActionCreatorWithPayload<any, "storage/setNotesStorageInfo">;
 export const setStorageLoading: import("@reduxjs/toolkit").ActionCreatorWithPayload<any, "storage/setStorageLoading">;
 export const setStorageError: import("@reduxjs/toolkit").ActionCreatorWithPayload<any, "storage/setStorageError">;
